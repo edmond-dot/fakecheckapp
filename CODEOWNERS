@@ -1,0 +1,29 @@
+# FakeCheckApp Code Owners
+# Author: Edmond Azbel
+# Copyright (c) 2026 Edmond Azbel. All Rights Reserved.
+#
+# This file is part of GitHub's CODEOWNERS feature. It ensures that
+# the original author (Edmond Azbel) is automatically requested for
+# review on any proposed change to this repository.
+#
+# This is a proprietary project by Edmond Azbel. External contributions
+# are not accepted at this time.
+
+# All files in this repository require review and approval by Edmond Azbel.
+* @REPLACE_WITH_YOUR_GITHUB_USERNAME
+
+# Source code (highest sensitivity)
+*.html @REPLACE_WITH_YOUR_GITHUB_USERNAME
+*.js @REPLACE_WITH_YOUR_GITHUB_USERNAME
+*.json @REPLACE_WITH_YOUR_GITHUB_USERNAME
+
+# Legal documents (absolutely no modification by others)
+LICENSE @REPLACE_WITH_YOUR_GITHUB_USERNAME
+ATTRIBUTION.md @REPLACE_WITH_YOUR_GITHUB_USERNAME
+TIMESTAMP.txt @REPLACE_WITH_YOUR_GITHUB_USERNAME
+SECURITY.md @REPLACE_WITH_YOUR_GITHUB_USERNAME
+CONTRIBUTING.md @REPLACE_WITH_YOUR_GITHUB_USERNAME
+
+# IMPORTANT: After creating your GitHub account, replace
+# "REPLACE_WITH_YOUR_GITHUB_USERNAME" above with your actual username
+# (e.g., @edmondazbel)

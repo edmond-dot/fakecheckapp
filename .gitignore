@@ -1,0 +1,30 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build/dist (if added later)
+node_modules/
+dist/
+build/
+*.log
+
+# Local environment
+.env
+.env.local
+secrets.txt
+
+# User-specific API keys (should never be committed)
+*api_key*
+*.key
+
+# Backup files
+*.bak
+*.backup

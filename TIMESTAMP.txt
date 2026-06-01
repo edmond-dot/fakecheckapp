@@ -1,0 +1,89 @@
+================================================================================
+                      AUTHORSHIP TIMESTAMP — PROOF OF ORIGIN
+                          FAKECHECKAPP BY EDMOND AZBEL
+================================================================================
+
+This file serves as cryptographic proof that the FakeCheckApp source code,
+authored by EDMOND AZBEL of Canada, existed in this exact form at the time
+of the initial GitHub commit.
+
+AUTHOR:           Edmond Azbel
+JURISDICTION:     Canada (Ontario)
+COPYRIGHT YEAR:   2026
+WORK:             FakeCheckApp - AI-Powered Authentication & Freshness Verification
+
+================================================================================
+                       SHA-256 CRYPTOGRAPHIC FINGERPRINTS
+================================================================================
+
+The following SHA-256 hashes uniquely identify the contents of each source
+file at the moment of commit. Any modification — even a single byte — would
+produce a completely different hash. This is mathematical proof that the
+code existed in this exact form on the commit timestamp.
+
+File: index.html
+SHA-256: 0abbd8e57539dff22c5b16fe36dd5f53e7852aeb265a6b52152c7ac2eaaa86d4
+
+File: manifest.json
+SHA-256: 8d5644f82d14ffed1954389c1c807acbf19c8fb31bcbf26a119138953145d3e3
+
+File: sw.js
+SHA-256: db18ed47a8ffa86978c7840dc6e300c202e950b606d23227d2c5be36ef68e350
+
+================================================================================
+                            HOW TO VERIFY AUTHORSHIP
+================================================================================
+
+To verify the authenticity of these files at any point in the future:
+
+1. Open a terminal/command prompt
+2. Navigate to the folder containing the files
+3. Run: sha256sum index.html manifest.json sw.js
+   (On macOS use: shasum -a 256)
+   (On Windows use: certutil -hashfile <file> SHA256)
+4. Compare the output to the hashes above
+
+If the hashes match, this is the original, unaltered work of Edmond Azbel.
+
+================================================================================
+                              LEGAL DECLARATION
+================================================================================
+
+I, Edmond Azbel, hereby declare under penalty of perjury that:
+
+1. I am the sole author and original creator of the FakeCheckApp software.
+2. All intellectual property contained herein is my original work.
+3. No portion of this software has been copied from any third-party source
+   in a manner that infringes their intellectual property rights.
+4. I retain all rights, title, and interest in this work.
+5. This commit represents the first public publication of this work.
+
+================================================================================
+                            INDEPENDENT VERIFICATION
+================================================================================
+
+Additional timestamping evidence:
+
+1. GitHub commit history (immutable, cryptographically signed)
+2. Email timestamps in author's personal records
+3. CIPO Copyright Registration (pending)
+4. CIPO Trademark filing for "FakeCheckApp" (pending)
+5. CIPO Provisional Patent filing (pending)
+
+================================================================================
+
+This file is part of the formal evidence chain protecting Edmond Azbel's
+authorship of FakeCheckApp under:
+
+  - Canadian Copyright Act (R.S.C., 1985, c. C-42)
+  - Trade-marks Act (R.S.C., 1985, c. T-13)
+  - Berne Convention for the Protection of Literary and Artistic Works
+  - WIPO Copyright Treaty
+  - Universal Copyright Convention
+
+Tampering with this timestamp file does not invalidate the authorship claim;
+it merely constitutes additional evidence of bad-faith infringement.
+
+================================================================================
+            Copyright (c) 2026 Edmond Azbel. All Rights Reserved.
+================================================================================

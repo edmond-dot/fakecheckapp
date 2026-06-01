@@ -1,0 +1,1942 @@
+<!DOCTYPE html>
+<!--
+================================================================================
+  FAKECHECKAPP — AI-Powered Authentication & Freshness Verification
+
+  Copyright (c) 2026 Edmond Azbel. All Rights Reserved.
+  Author: Edmond Azbel (Canada)
+
+  PROPRIETARY AND CONFIDENTIAL — Patent Pending
+
+  This software, its UI/UX design, multi-factor identification methodology,
+  geo-location intelligence system, vendor catalog cross-reference logic,
+  AI prompt engineering, freshness assessment integration, and combined
+  authentication architecture are the exclusive intellectual property of
+  Edmond Azbel.
+
+  Unauthorized reproduction, distribution, derivative works, reverse
+  engineering, or removal of this copyright notice is strictly prohibited.
+
+  Protected under:
+    - Canadian Copyright Act (R.S.C., 1985, c. C-42)
+    - Trade-marks Act (R.S.C., 1985, c. T-13)
+    - Berne Convention for the Protection of Literary and Artistic Works
+    - WIPO Copyright Treaty
+
+  Violators will be prosecuted to the fullest extent of the law.
+
+  Trademark: "FakeCheckApp" — pending registration
+  Patent: Method of multi-source AI authentication with geo-distribution
+          verification, vendor catalog matching, and freshness assessment
+          (CIPO provisional pending)
+
+  For licensing inquiries, contact the copyright holder.
+================================================================================
+-->
+<!-- @author Edmond Azbel | @copyright 2026 | @license Proprietary -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+<!-- PWA Configuration -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1A1918">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="FakeCheck">
+<meta name="mobile-web-app-capable" content="yes">
+
+<!-- App Icons -->
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="icon-512.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+
+<!-- Copyright Meta -->
+<meta name="author" content="Edmond Azbel">
+<meta name="copyright" content="(c) 2026 Edmond Azbel. All Rights Reserved.">
+<meta name="rights" content="Proprietary — Unauthorized use prohibited">
+<meta name="dc.creator" content="Edmond Azbel">
+<meta name="dc.rights" content="Copyright 2026 Edmond Azbel">
+<meta name="application-name" content="FakeCheckApp">
+<meta name="description" content="AI-powered product authentication and freshness verification by Edmond Azbel">
+<title>FakeCheckApp — Authenticity + Freshness AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  /* Claude signature palette */
+  --claude-cream:#FAF9F5;
+  --claude-ivory:#F0EEE6;
+  --claude-warm:#E8E4D9;
+  --claude-coal:#1F1E1D;
+  --claude-coal-soft:#262624;
+  --claude-coal-light:#30302E;
+  --claude-coal-lighter:#3D3D3A;
+  --claude-orange:#D97757;
+  --claude-orange-soft:#E8A687;
+  --claude-orange-dim:#C56A47;
+  --claude-text:#F5F4EE;
+  --claude-text-muted:#A8A29E;
+  --claude-text-dim:#78716C;
+  --claude-border:rgba(255,255,255,.08);
+  --claude-border-strong:rgba(255,255,255,.15);
+
+  /* Semantic colors */
+  --brand:var(--claude-orange);
+  --brand-dim:var(--claude-orange-dim);
+  --danger:#E5564E;
+  --warn:#E8A95A;
+  --info:#7BA7C2;
+  --ai:#D4A574;
+  --bg:var(--claude-coal);
+  --s1:var(--claude-coal-soft);
+  --s2:var(--claude-coal-light);
+  --s3:var(--claude-coal-lighter);
+  --bd:var(--claude-border);
+  --bd2:var(--claude-border-strong);
+  --tx:var(--claude-text);
+  --mu:var(--claude-text-muted);
+  --mu2:var(--claude-text-dim);
+  --ff:'Inter',sans-serif;
+  --ft:'Rajdhani',sans-serif;
+}
+html,body{-webkit-text-size-adjust:100%}
+body{background:linear-gradient(135deg,#1A1918 0%,#262624 50%,#1A1918 100%);min-height:100vh;color:var(--tx);font-family:var(--ff);font-size:14px;display:flex;justify-content:center;padding:14px;background-attachment:fixed;line-height:1.5}
+.shell{width:100%;max-width:560px}
+.tagline{text-align:center;font-size:11px;color:var(--mu);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;font-weight:500}
+.tagline span{color:var(--brand)}.tagline em{font-style:normal;color:var(--ai);font-weight:600}
+
+.app{background:var(--bg);border-radius:22px;border:1px solid var(--bd);overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.5)}
+.top{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:linear-gradient(180deg,var(--s1) 0%,rgba(17,24,39,.7) 100%);border-bottom:1px solid var(--bd)}
+.lg{font-family:var(--ft);font-size:22px;font-weight:700;letter-spacing:1.2px;color:var(--brand)}
+.lg span{color:var(--tx)}.lg em{font-style:normal;font-size:11px;color:var(--mu);letter-spacing:1.5px;font-family:var(--ff);font-weight:400;margin-left:6px;vertical-align:2px}
+.top-status{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--mu);font-weight:500;letter-spacing:.5px}
+.top-status .dot{width:7px;height:7px;border-radius:50%;background:var(--danger);animation:pulse 1.5s infinite}
+.top-status.connected .dot{background:var(--brand)}
+.top-status.connected{color:var(--brand)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+.onboard{padding:18px;background:linear-gradient(180deg,rgba(212,165,116,.08),rgba(212,165,116,.02));border-bottom:1px solid var(--bd);display:none}
+.onboard.show{display:block}
+.onboard-title{font-family:var(--ft);font-size:16px;font-weight:700;color:var(--ai);margin-bottom:6px}
+.onboard-sub{font-size:12px;color:var(--mu);line-height:1.6;margin-bottom:14px}
+.onboard-steps{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.onboard-step{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--s2);border:1px solid var(--bd);border-radius:9px;font-size:12px;color:var(--tx);line-height:1.4}
+.onboard-step-num{width:22px;height:22px;border-radius:50%;background:var(--ai);color:#1A1918;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.onboard-step a{color:var(--ai);text-decoration:underline;font-weight:500}
+.onboard-input{display:flex;gap:8px}
+.onboard-input input{flex:1;background:var(--s2);border:1px solid var(--bd2);border-radius:9px;padding:11px 13px;color:var(--tx);font-size:13px;outline:none;font-family:monospace;-webkit-appearance:none}
+.onboard-input input:focus{border-color:var(--ai)}
+.onboard-input button{background:var(--ai);border:none;border-radius:9px;padding:11px 18px;font-family:var(--ft);font-size:13px;font-weight:700;color:#1A1918;cursor:pointer;letter-spacing:.4px}
+.onboard-status{font-size:11px;margin-top:8px;color:var(--mu)}
+.onboard-status.ok{color:var(--brand)}.onboard-status.err{color:var(--danger)}
+.onboard-skip{text-align:center;margin-top:12px}
+.onboard-skip a{color:var(--mu);font-size:11px;text-decoration:underline}
+
+/* AI PLATFORM SELECTOR */
+.ai-platforms{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.ai-platform-card{background:var(--s2);border:1.5px solid var(--bd2);border-radius:11px;padding:11px 12px;cursor:pointer;transition:all .2s;position:relative;text-align:left}
+.ai-platform-card:hover{border-color:var(--mu);background:var(--s3)}
+.ai-platform-card.active{border-color:var(--ai);background:linear-gradient(135deg,rgba(212,165,116,.12),rgba(212,165,116,.02));box-shadow:0 0 0 1px var(--ai)}
+.ai-platform-card.coming-soon{opacity:.5;cursor:not-allowed}
+.ai-platform-card.coming-soon:hover{border-color:var(--bd2);background:var(--s2)}
+.ai-platform-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.ai-platform-logo{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0}
+.ai-platform-logo.anthropic{background:#D97757}
+.ai-platform-logo.openai{background:#10A37F}
+.ai-platform-logo.gemini{background:#4285F4}
+.ai-platform-logo.mistral{background:#FF7000}
+.ai-platform-name{font-family:var(--ft);font-size:12px;font-weight:700;color:var(--tx);letter-spacing:.3px}
+.ai-platform-badge{position:absolute;top:6px;right:6px;font-size:8px;background:var(--ai);color:#1A1918;padding:1px 6px;border-radius:5px;font-weight:700;letter-spacing:.3px}
+.ai-platform-badge.soon{background:var(--mu);color:#1A1918}
+.ai-platform-badge.active{background:var(--brand);color:#1A1918}
+.ai-platform-desc{font-size:9.5px;color:var(--mu);line-height:1.4;margin-top:2px}
+.ai-platform-model{font-size:9px;color:var(--ai);font-family:monospace;margin-top:5px;padding:2px 6px;background:rgba(212,165,116,.1);border-radius:4px;display:inline-block}
+.ai-platform-card.coming-soon .ai-platform-model{color:var(--mu);background:var(--s3)}
+
+/* PROVIDER-SPECIFIC SETUP INSTRUCTIONS */
+.provider-setup{background:var(--s2);border:1px solid var(--bd);border-radius:10px;padding:11px 13px;margin-bottom:12px;font-size:11px;color:var(--mu);line-height:1.6}
+.provider-setup b{color:var(--tx)}
+.provider-setup a{color:var(--ai);text-decoration:underline}
+.provider-setup .provider-step{display:flex;gap:8px;margin-top:6px;align-items:flex-start}
+.provider-setup .provider-step-num{width:18px;height:18px;border-radius:50%;background:var(--ai);color:#1A1918;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+
+/* MODEL SELECTOR DROPDOWN */
+.model-select-row{margin-bottom:10px}
+.model-select-row label{font-size:11px;color:var(--mu);display:block;margin-bottom:5px;font-weight:500}
+.model-select-row select{width:100%;background:var(--s2);border:1px solid var(--bd2);border-radius:8px;padding:9px 12px;color:var(--tx);font-size:12px;outline:none;font-family:var(--ff);-webkit-appearance:none;background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23A8A29E' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.model-select-row select:focus{border-color:var(--ai)}
+
+.settings-bar{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--s1);border-bottom:1px solid var(--bd)}
+.settings-bar label{font-size:11px;color:var(--mu)}
+.settings-bar select{flex:1;background:var(--s2);border:1px solid var(--bd2);border-radius:8px;padding:7px 11px;color:var(--tx);font-size:12px;outline:none;font-family:var(--ff);-webkit-appearance:none}
+.settings-bar-mini{font-size:10px;color:var(--mu);cursor:pointer;padding:5px 9px;border:1px solid var(--bd2);border-radius:7px;background:var(--s2)}
+
+/* MODE SWITCHER */
+.mode-tabs{display:flex;padding:10px 14px 0;gap:6px;background:var(--s1);border-bottom:1px solid var(--bd)}
+.mode-tab{flex:1;background:var(--s2);border:1px solid var(--bd);border-radius:10px 10px 0 0;border-bottom:none;padding:10px 8px;cursor:pointer;text-align:center;transition:all .2s;position:relative}
+.mode-tab.active.auth{background:linear-gradient(180deg,rgba(217,119,87,.12),rgba(217,119,87,.02));border-color:var(--brand);box-shadow:0 -2px 0 var(--brand) inset}
+.mode-tab.active.fresh{background:linear-gradient(180deg,rgba(255,165,40,.12),rgba(255,165,40,.02));border-color:#FFA528;box-shadow:0 -2px 0 #FFA528 inset}
+.mode-tab-icon{font-size:18px;margin-bottom:3px;line-height:1}
+.mode-tab-name{font-family:var(--ft);font-size:12px;font-weight:700;letter-spacing:.4px;color:var(--mu)}
+.mode-tab.active.auth .mode-tab-name{color:var(--brand)}
+.mode-tab.active.fresh .mode-tab-name{color:#FFA528}
+.mode-tab-desc{font-size:9px;color:var(--mu);margin-top:1px;line-height:1.2}
+
+/* FRESHNESS HERO */
+.freshness-hero{background:linear-gradient(135deg,rgba(255,165,40,.1),rgba(255,165,40,.02));border:1px solid rgba(255,165,40,.3);border-radius:14px;padding:18px 16px;text-align:center}
+.freshness-circle{position:relative;width:130px;height:130px;margin:0 auto 10px}
+.freshness-circle svg{width:100%;height:100%;transform:rotate(-90deg)}
+.freshness-circle-bg{fill:none;stroke:var(--s3);stroke-width:10}
+.freshness-circle-fill{fill:none;stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset 1.5s ease}
+.freshness-percent-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.freshness-percent{font-family:var(--ft);font-size:32px;font-weight:700;line-height:1}
+.freshness-label{font-size:9px;color:var(--mu);text-transform:uppercase;letter-spacing:.7px;font-weight:600;margin-top:2px}
+.freshness-status{font-family:var(--ft);font-size:18px;font-weight:700;margin-top:8px;letter-spacing:.4px}
+
+/* FRESHNESS INFO GRID */
+.fresh-info-panel{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fresh-info-cell{background:var(--s2);border-radius:9px;padding:10px 11px;border:1px solid var(--bd)}
+.fresh-info-cell.full{grid-column:span 2}
+.fresh-info-cell.good{border-color:rgba(217,119,87,.35);background:linear-gradient(135deg,rgba(217,119,87,.06),rgba(217,119,87,.01))}
+.fresh-info-cell.warn{border-color:rgba(232,169,90,.35);background:linear-gradient(135deg,rgba(232,169,90,.06),rgba(232,169,90,.01))}
+.fresh-info-cell.bad{border-color:rgba(229,86,78,.35);background:linear-gradient(135deg,rgba(229,86,78,.06),rgba(229,86,78,.01))}
+.fresh-info-label{font-size:9px;color:var(--mu);text-transform:uppercase;letter-spacing:.7px;margin-bottom:5px;font-weight:600;display:flex;align-items:center;gap:4px}
+.fresh-info-value{font-family:var(--ft);font-size:15px;font-weight:700;color:var(--tx);line-height:1.2}
+.fresh-info-value-sm{font-size:12px;font-weight:600;color:var(--tx);line-height:1.4}
+.fresh-info-sub{font-size:10px;color:var(--mu);margin-top:3px;line-height:1.4}
+
+/* RIPENESS TIMELINE */
+.ripeness-timeline{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:13px 14px}
+.ripeness-bar{position:relative;height:30px;background:linear-gradient(90deg,#4ade80 0%,#facc15 35%,#fb923c 65%,#dc2626 100%);border-radius:8px;margin:14px 0 6px}
+.ripeness-marker{position:absolute;top:-4px;width:4px;height:38px;background:#fff;border-radius:2px;box-shadow:0 0 0 2px rgba(0,0,0,.4),0 4px 8px rgba(0,0,0,.5);transition:left 1.2s ease}
+.ripeness-labels{display:flex;justify-content:space-between;font-size:9px;color:var(--mu);font-weight:600;margin-top:4px}
+.ripeness-label-current{font-size:11px;color:var(--tx);font-weight:600;text-align:center;margin-top:9px;padding:7px 10px;background:var(--s2);border-radius:7px}
+
+/* FRESHNESS INDICATORS */
+.fresh-indicators{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:12px 14px}
+.fresh-ind-row{display:flex;align-items:flex-start;gap:10px;padding:8px;background:var(--s2);border-radius:8px;border:1px solid var(--bd);margin-bottom:7px}
+.fresh-ind-row:last-child{margin-bottom:0}
+.fresh-ind-row.good{border-color:rgba(217,119,87,.3)}
+.fresh-ind-row.warn{border-color:rgba(232,169,90,.3)}
+.fresh-ind-row.bad{border-color:rgba(229,86,78,.3)}
+.fresh-ind-icon{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;font-weight:700}
+.fresh-ind-row.good .fresh-ind-icon{background:rgba(217,119,87,.18);color:var(--brand)}
+.fresh-ind-row.warn .fresh-ind-icon{background:rgba(232,169,90,.18);color:var(--warn)}
+.fresh-ind-row.bad .fresh-ind-icon{background:rgba(229,86,78,.18);color:var(--danger)}
+.fresh-ind-content{flex:1;min-width:0}
+.fresh-ind-label{font-size:11px;font-weight:600;color:var(--tx);margin-bottom:2px;display:flex;align-items:center;justify-content:space-between;gap:6px}
+.fresh-ind-badge{font-size:9px;padding:2px 7px;border-radius:8px;font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+.fresh-ind-row.good .fresh-ind-badge{background:rgba(217,119,87,.18);color:var(--brand)}
+.fresh-ind-row.warn .fresh-ind-badge{background:rgba(232,169,90,.18);color:var(--warn)}
+.fresh-ind-row.bad .fresh-ind-badge{background:rgba(229,86,78,.18);color:var(--danger)}
+.fresh-ind-detail{font-size:10px;color:var(--mu);line-height:1.5}
+
+.uploader{padding:18px}
+.uploader-title{font-family:var(--ft);font-size:13px;font-weight:700;color:var(--tx);letter-spacing:.4px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.uploader-title-num{width:20px;height:20px;border-radius:50%;background:var(--brand);color:#1A1918;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+
+.primary-slot{position:relative;background:#1A1918;border:2px dashed rgba(217,119,87,.35);border-radius:14px;height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;overflow:hidden;transition:all .25s;margin-bottom:12px}
+.primary-slot:hover{border-color:var(--brand);background:#221F1C}
+.primary-slot.has-photo{border-style:solid;border-color:var(--brand);box-shadow:0 0 0 1px var(--brand) inset,0 8px 24px rgba(217,119,87,.15)}
+.primary-icon{font-size:34px}
+.primary-text{font-size:13px;color:var(--mu);text-align:center;padding:0 14px;line-height:1.5}
+.primary-text b{color:var(--tx);font-weight:600;display:block;margin-bottom:2px;font-size:14px}
+.primary-img{width:100%;height:100%;object-fit:cover;display:none;position:absolute;inset:0}
+.primary-img.active{display:block}
+.primary-remove{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;background:rgba(229,86,78,.95);color:#fff;font-size:14px;font-weight:700;display:none;align-items:center;justify-content:center;cursor:pointer;border:none;z-index:5;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+.primary-slot.has-photo .primary-remove{display:flex}
+
+.secondary-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
+.sec-slot{aspect-ratio:1;background:#1A1918;border:2px dashed rgba(217,119,87,.25);border-radius:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;position:relative;overflow:hidden;transition:all .2s}
+.sec-slot:hover{border-color:var(--brand)}
+.sec-slot.has-photo{border-style:solid;border-color:var(--brand)}
+.sec-icon{font-size:18px;opacity:.7}
+.sec-label{font-size:9px;color:var(--mu);text-align:center;line-height:1.3;padding:0 4px}
+.sec-img{width:100%;height:100%;object-fit:cover;display:none;position:absolute;inset:0}
+.sec-img.active{display:block}
+.sec-remove{position:absolute;top:3px;right:3px;width:20px;height:20px;border-radius:50%;background:rgba(229,86,78,.95);color:#fff;font-size:11px;font-weight:700;display:none;align-items:center;justify-content:center;cursor:pointer;border:none;z-index:5}
+.sec-slot.has-photo .sec-remove{display:flex}
+.hidden-input{display:none}
+
+.brand-input-row{margin-bottom:14px}
+.brand-input-row label{font-size:11px;color:var(--mu);display:block;margin-bottom:5px;font-weight:500}
+.brand-input-row input{width:100%;background:var(--s2);border:1px solid var(--bd2);border-radius:10px;padding:11px 14px;color:var(--tx);font-size:13px;outline:none;font-family:var(--ff);-webkit-appearance:none}
+.brand-input-row input:focus{border-color:var(--brand)}
+
+.analyze-btn{width:100%;background:linear-gradient(135deg,var(--brand) 0%,var(--brand-dim) 100%);border:none;color:#1A1918;font-family:var(--ft);font-size:16px;font-weight:700;padding:16px;border-radius:12px;cursor:pointer;letter-spacing:.5px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 6px 22px rgba(217,119,87,.35);transition:all .15s;text-transform:uppercase}
+.analyze-btn:active{transform:scale(.98)}
+.analyze-btn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.analyze-btn-secondary{width:100%;margin-top:8px;background:transparent;border:1px solid var(--bd2);color:var(--mu);font-size:12px;font-weight:500;padding:10px;border-radius:10px;cursor:pointer}
+
+.progress-panel{display:none;padding:20px 18px}
+.progress-panel.show{display:block}
+.progress-header{text-align:center;margin-bottom:20px}
+.progress-spinner{width:48px;height:48px;margin:0 auto 12px;border:3px solid var(--s3);border-top-color:var(--ai);border-right-color:var(--ai);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.progress-title{font-family:var(--ft);font-size:15px;font-weight:700;color:var(--tx)}
+.progress-subtitle{font-size:11px;color:var(--mu);margin-top:4px}
+.progress-steps{display:flex;flex-direction:column;gap:9px}
+.progress-step{display:flex;align-items:center;gap:11px;padding:11px 13px;background:var(--s2);border:1px solid var(--bd);border-radius:10px;font-size:12px;color:var(--mu);transition:all .3s;opacity:.5}
+.progress-step.active{opacity:1;border-color:var(--ai);background:linear-gradient(135deg,rgba(212,165,116,.08),rgba(212,165,116,.02))}
+.progress-step.done{opacity:1;border-color:rgba(217,119,87,.3);background:rgba(217,119,87,.04);color:var(--tx)}
+.progress-step-num{width:24px;height:24px;border-radius:50%;background:var(--s3);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--mu)}
+.progress-step.active .progress-step-num{background:var(--ai);color:#1A1918}
+.progress-step.done .progress-step-num{background:var(--brand);color:#1A1918}
+.progress-step-text{flex:1}
+.progress-step b{color:var(--tx);font-weight:600}
+.progress-step.active b{color:var(--ai)}
+.progress-step.done b{color:var(--brand)}
+
+.res{display:none;flex-direction:column;gap:11px;padding:14px}
+.res.on{display:flex}
+
+.rh{display:flex;align-items:center;gap:11px;padding:13px;background:var(--s1);border-radius:12px;border:1px solid var(--bd)}
+.bi{width:54px;height:54px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;background:var(--s2);border:1px solid var(--bd2);overflow:hidden}
+.bi img{width:100%;height:100%;object-fit:cover}
+.binfo{flex:1;min-width:0}
+.binfo h3{font-family:var(--ft);font-size:17px;font-weight:700;letter-spacing:.4px;line-height:1.2;color:var(--tx);word-break:break-word}
+.binfo p{font-size:11px;color:var(--mu);margin-top:4px;line-height:1.4}
+
+.vd{border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.vd-real{background:linear-gradient(135deg,rgba(217,119,87,.1),rgba(217,119,87,.02));border:1px solid rgba(217,119,87,.35)}
+.vd-fake{background:linear-gradient(135deg,rgba(229,86,78,.1),rgba(229,86,78,.02));border:1px solid rgba(229,86,78,.35)}
+.vd-sus{background:linear-gradient(135deg,rgba(232,169,90,.1),rgba(232,169,90,.02));border:1px solid rgba(232,169,90,.35)}
+.vd-unk{background:linear-gradient(135deg,rgba(136,146,164,.06),rgba(136,146,164,.02));border:1px solid rgba(136,146,164,.25)}
+.vi{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;font-weight:700}
+.vi-r{background:rgba(217,119,87,.2);color:var(--brand)}
+.vi-f{background:rgba(229,86,78,.2);color:var(--danger)}
+.vi-s{background:rgba(232,169,90,.2);color:var(--warn)}
+.vi-u{background:rgba(136,146,164,.2);color:var(--mu)}
+.vl{font-family:var(--ft);font-size:17px;font-weight:700;letter-spacing:.6px}
+.vl-r{color:var(--brand)}.vl-f{color:var(--danger)}.vl-s{color:var(--warn)}.vl-u{color:var(--mu)}
+.vsub{font-size:10px;color:var(--mu);margin-top:2px}
+.vsc{margin-left:auto;text-align:right}
+.vsn{font-family:var(--ft);font-size:28px;font-weight:700;line-height:1}
+.vstag{font-size:10px;color:var(--mu);margin-top:1px}
+
+.score-bar{height:6px;background:var(--s3);border-radius:6px;overflow:hidden}
+.score-fill{height:100%;border-radius:6px;transition:width 1.2s ease}
+
+/* NEW: PRODUCT INFO PANEL (price + release + vendor) */
+.info-panel{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.info-cell{background:var(--s2);border-radius:9px;padding:10px 11px;border:1px solid var(--bd)}
+.info-cell.full{grid-column:span 2}
+.info-cell.highlight-real{border-color:rgba(217,119,87,.35);background:linear-gradient(135deg,rgba(217,119,87,.06),rgba(217,119,87,.01))}
+.info-cell.highlight-fake{border-color:rgba(229,86,78,.35);background:linear-gradient(135deg,rgba(229,86,78,.06),rgba(229,86,78,.01))}
+.info-cell.highlight-warn{border-color:rgba(232,169,90,.35);background:linear-gradient(135deg,rgba(232,169,90,.06),rgba(232,169,90,.01))}
+.info-label{font-size:9px;color:var(--mu);text-transform:uppercase;letter-spacing:.7px;margin-bottom:5px;font-weight:600;display:flex;align-items:center;gap:4px}
+.info-value{font-family:var(--ft);font-size:16px;font-weight:700;color:var(--tx);letter-spacing:.3px;line-height:1.2}
+.info-value-sm{font-size:13px;font-weight:600;color:var(--tx);line-height:1.4}
+.info-sub{font-size:10px;color:var(--mu);margin-top:3px;line-height:1.4}
+.vendor-match-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:14px;margin-top:4px}
+.vmb-yes{background:rgba(217,119,87,.18);color:var(--brand)}
+.vmb-no{background:rgba(229,86,78,.18);color:var(--danger)}
+.vmb-warn{background:rgba(232,169,90,.18);color:var(--warn)}
+
+/* NEW: GEO-LOCATION PANEL */
+.geo-panel{background:linear-gradient(135deg,rgba(123,167,194,.08),rgba(123,167,194,.02));border:1px solid rgba(123,167,194,.28);border-radius:12px;padding:13px 15px}
+.geo-header{display:flex;align-items:center;gap:9px;margin-bottom:11px;padding-bottom:9px;border-bottom:1px solid rgba(123,167,194,.15)}
+.geo-icon{width:34px;height:34px;border-radius:50%;background:rgba(123,167,194,.18);color:var(--info);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;border:1px solid rgba(123,167,194,.4)}
+.geo-title{font-family:var(--ft);font-size:13px;font-weight:700;color:var(--info);letter-spacing:.4px}
+.geo-subtitle{font-size:10px;color:var(--mu);margin-top:2px}
+.geo-flow{display:flex;align-items:center;justify-content:space-around;margin:14px 0;flex-wrap:wrap;gap:10px}
+.geo-node{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:80px;max-width:120px}
+.geo-flag{font-size:24px;line-height:1}
+.geo-node-label{font-size:9px;color:var(--mu);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.geo-node-name{font-size:11px;color:var(--tx);font-weight:600;text-align:center;line-height:1.3}
+.geo-arrow{font-size:18px;color:var(--info);font-weight:700;align-self:center}
+.geo-arrow.match{color:var(--brand)}
+.geo-arrow.mismatch{color:var(--danger)}
+.geo-arrow.warn{color:var(--warn)}
+.geo-verdict{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;font-size:12px;font-weight:500;line-height:1.5}
+.geo-verdict.match{background:rgba(217,119,87,.1);border:1px solid rgba(217,119,87,.3);color:var(--brand)}
+.geo-verdict.mismatch{background:rgba(229,86,78,.1);border:1px solid rgba(229,86,78,.3);color:var(--danger)}
+.geo-verdict.warn{background:rgba(232,169,90,.1);border:1px solid rgba(232,169,90,.3);color:var(--warn)}
+.geo-verdict-icon{font-size:18px;flex-shrink:0}
+.geo-verdict-text{flex:1;color:var(--tx)}
+.geo-verdict-text b{display:block;margin-bottom:3px}
+
+/* NEW: MULTI-FACTOR ID PANEL */
+.mfa-panel{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:13px 15px}
+.mfa-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mfa-cell{background:var(--s2);border:1px solid var(--bd);border-radius:9px;padding:9px 11px;display:flex;align-items:flex-start;gap:8px}
+.mfa-cell.full{grid-column:span 2}
+.mfa-cell.pass{border-color:rgba(217,119,87,.3);background:linear-gradient(135deg,rgba(217,119,87,.05),rgba(217,119,87,.01))}
+.mfa-cell.fail{border-color:rgba(229,86,78,.3);background:linear-gradient(135deg,rgba(229,86,78,.05),rgba(229,86,78,.01))}
+.mfa-cell.warn{border-color:rgba(232,169,90,.3);background:linear-gradient(135deg,rgba(232,169,90,.05),rgba(232,169,90,.01))}
+.mfa-cell.na{opacity:.6}
+.mfa-cell-icon{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.mfa-cell.pass .mfa-cell-icon{background:rgba(217,119,87,.18);color:var(--brand)}
+.mfa-cell.fail .mfa-cell-icon{background:rgba(229,86,78,.18);color:var(--danger)}
+.mfa-cell.warn .mfa-cell-icon{background:rgba(232,169,90,.18);color:var(--warn)}
+.mfa-cell.na .mfa-cell-icon{background:var(--s3);color:var(--mu)}
+.mfa-cell-content{flex:1;min-width:0}
+.mfa-cell-label{font-size:9px;color:var(--mu);text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin-bottom:2px}
+.mfa-cell-value{font-size:11px;color:var(--tx);font-weight:500;line-height:1.4;word-break:break-word}
+
+.section-title{font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;font-weight:600;display:flex;align-items:center;gap:6px;padding-left:2px}
+
+.panel{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:13px 15px}
+.panel-ai{background:linear-gradient(135deg,rgba(212,165,116,.08),rgba(212,165,116,.02));border:1px solid rgba(212,165,116,.28)}
+
+.ai-head{display:flex;align-items:center;gap:9px;margin-bottom:11px;padding-bottom:10px;border-bottom:1px solid rgba(212,165,116,.18)}
+.ai-avatar{width:34px;height:34px;border-radius:50%;background:rgba(212,165,116,.18);color:var(--ai);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;border:1px solid rgba(212,165,116,.4)}
+.ai-head-text h4{font-family:var(--ft);font-size:13px;font-weight:700;color:var(--ai)}
+.ai-head-text p{font-size:10px;color:var(--mu);margin-top:2px}
+.ai-conf{margin-left:auto;text-align:right}
+.ai-conf-val{font-family:var(--ft);font-size:20px;font-weight:700;color:var(--ai);line-height:1}
+.ai-conf-lbl{font-size:9px;color:var(--mu);margin-top:2px}
+.ai-verdict{font-size:13px;color:var(--tx);line-height:1.7;margin-bottom:11px}
+.ai-verdict b{color:var(--ai);font-weight:600}
+.ai-checks{display:flex;flex-direction:column;gap:7px}
+.ai-check{display:flex;align-items:flex-start;gap:9px;font-size:12px;color:var(--mu);line-height:1.55}
+.ai-check-ico{width:18px;height:18px;border-radius:50%;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.check-ok{background:rgba(217,119,87,.18);color:var(--brand)}
+.check-bad{background:rgba(229,86,78,.18);color:var(--danger)}
+.check-warn{background:rgba(232,169,90,.18);color:var(--warn)}
+.check-info{background:rgba(123,167,194,.18);color:var(--info)}
+.ai-check b{color:var(--tx);font-weight:600}
+
+.brand-checks-panel{background:linear-gradient(135deg,rgba(232,169,90,.06),rgba(232,169,90,.02));border:1px solid rgba(232,169,90,.25);border-radius:12px;padding:13px 15px}
+.brand-checks-header{font-family:var(--ft);font-size:12px;font-weight:700;color:var(--warn);letter-spacing:.5px;margin-bottom:9px}
+
+/* NEARBY CHEAPEST PRICE PANEL */
+.nearby-panel{background:linear-gradient(135deg,rgba(217,119,87,.08),rgba(217,119,87,.02));border:1px solid rgba(217,119,87,.3);border-radius:12px;padding:13px 15px}
+.nearby-header{display:flex;align-items:center;gap:9px;margin-bottom:11px;padding-bottom:9px;border-bottom:1px solid rgba(217,119,87,.18)}
+.nearby-icon{width:34px;height:34px;border-radius:50%;background:rgba(217,119,87,.18);color:var(--brand);display:flex;align-items:center;justify-content:center;font-size:15px;border:1px solid rgba(217,119,87,.4)}
+.nearby-title{font-family:var(--ft);font-size:13px;font-weight:700;color:var(--brand);letter-spacing:.4px}
+.nearby-subtitle{font-size:10px;color:var(--mu);margin-top:2px}
+.nearby-best-deal{background:linear-gradient(135deg,rgba(217,119,87,.15),rgba(217,119,87,.04));border:1.5px solid var(--brand);border-radius:10px;padding:11px 13px;margin-bottom:10px;position:relative}
+.nearby-best-deal::before{content:"⭐ BEST DEAL";position:absolute;top:-8px;left:11px;background:var(--brand);color:#1A1918;font-size:9px;font-weight:700;padding:2px 7px;border-radius:5px;letter-spacing:.5px}
+.nearby-best-row{display:flex;align-items:center;gap:10px;margin-top:6px}
+.nearby-best-price{font-family:var(--ft);font-size:22px;font-weight:700;color:var(--brand);line-height:1}
+.nearby-best-info{flex:1}
+.nearby-best-vendor{font-size:13px;font-weight:600;color:var(--tx)}
+.nearby-best-meta{font-size:10px;color:var(--mu);margin-top:2px}
+.nearby-best-action{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+.nearby-action-btn{flex:1;min-width:120px;background:var(--brand);color:#1A1918;border:none;border-radius:7px;padding:8px 10px;font-size:11px;font-weight:600;cursor:pointer;text-decoration:none;text-align:center;display:flex;align-items:center;justify-content:center;gap:5px}
+.nearby-action-btn.secondary{background:var(--s3);color:var(--tx);border:1px solid var(--bd2)}
+.nearby-vendor-list{display:flex;flex-direction:column;gap:7px}
+.nearby-vendor-row{display:flex;align-items:center;gap:10px;padding:9px 11px;background:var(--s2);border:1px solid var(--bd);border-radius:9px;text-decoration:none;color:inherit;transition:all .2s}
+.nearby-vendor-row:hover{background:var(--s3);border-color:var(--bd2)}
+.nearby-vendor-rank{width:22px;height:22px;border-radius:50%;background:var(--s3);color:var(--mu);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nearby-vendor-info{flex:1;min-width:0}
+.nearby-vendor-name{font-size:12px;font-weight:600;color:var(--tx);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.nearby-vendor-tag{font-size:8px;padding:1px 5px;border-radius:5px;font-weight:600;letter-spacing:.3px}
+.tag-authorized{background:rgba(217,119,87,.18);color:var(--brand)}
+.tag-marketplace{background:rgba(123,167,194,.18);color:var(--info)}
+.tag-local{background:rgba(232,169,90,.18);color:var(--warn)}
+.tag-resale{background:rgba(212,165,116,.18);color:var(--ai)}
+.nearby-vendor-meta{font-size:10px;color:var(--mu);margin-top:2px;line-height:1.4}
+.nearby-vendor-price{text-align:right;flex-shrink:0}
+.nearby-vendor-price-val{font-family:var(--ft);font-size:14px;font-weight:700;color:var(--tx);line-height:1}
+.nearby-vendor-price-lbl{font-size:9px;color:var(--mu);margin-top:2px}
+.nearby-savings{font-size:9px;color:var(--brand);font-weight:600;margin-top:2px}
+.nearby-disclaimer{font-size:9px;color:var(--mu2);margin-top:8px;line-height:1.5;font-style:italic}
+
+/* STORES NEAR ME PANEL */
+.stores-panel{background:linear-gradient(135deg,rgba(123,167,194,.08),rgba(123,167,194,.02));border:1px solid rgba(123,167,194,.3);border-radius:12px;padding:13px 15px}
+.stores-header{display:flex;align-items:center;gap:9px;margin-bottom:11px;padding-bottom:9px;border-bottom:1px solid rgba(123,167,194,.18)}
+.stores-icon{width:34px;height:34px;border-radius:50%;background:rgba(123,167,194,.18);color:var(--info);display:flex;align-items:center;justify-content:center;font-size:15px;border:1px solid rgba(123,167,194,.4)}
+.stores-title{font-family:var(--ft);font-size:13px;font-weight:700;color:var(--info);letter-spacing:.4px}
+.stores-subtitle{font-size:10px;color:var(--mu);margin-top:2px}
+.gps-status{display:inline-flex;align-items:center;gap:5px;font-size:10px;padding:3px 8px;border-radius:11px;font-weight:600;margin-left:auto}
+.gps-status.on{background:rgba(217,119,87,.18);color:var(--brand)}
+.gps-status.off{background:var(--s3);color:var(--mu);cursor:pointer}
+.gps-status.off:hover{background:var(--bd2)}
+.store-search-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}
+.store-search-btn{background:var(--s2);border:1px solid var(--bd2);border-radius:9px;padding:10px;cursor:pointer;text-decoration:none;color:inherit;display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center;transition:all .2s}
+.store-search-btn:hover{background:var(--s3);border-color:var(--info)}
+.store-search-btn-icon{font-size:18px;width:32px;height:32px;border-radius:8px;background:var(--s3);display:flex;align-items:center;justify-content:center}
+.store-search-btn-label{font-size:11px;font-weight:600;color:var(--tx);line-height:1.3}
+.store-search-btn-sub{font-size:9px;color:var(--mu);line-height:1.2}
+.store-primary-btn{background:linear-gradient(135deg,var(--info),#5589a7);color:#fff;border:none;border-radius:10px;padding:12px;width:100%;font-family:var(--ft);font-size:13px;font-weight:700;cursor:pointer;letter-spacing:.4px;display:flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;margin-top:10px;box-shadow:0 4px 14px rgba(123,167,194,.3)}
+.store-primary-btn:active{transform:scale(.98)}
+
+.synbox{background:var(--s1);border:1px solid rgba(217,119,87,.25);border-radius:12px;padding:13px 15px}
+.syntit{font-family:var(--ft);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--brand);margin-bottom:8px}
+.syntext{font-size:12px;color:var(--mu);line-height:1.7;margin-bottom:8px}
+.synconcl{font-size:13px;font-weight:500;line-height:1.6;padding:10px 12px;border-radius:8px;background:var(--s2);border-left:3px solid var(--brand)}
+
+.next-steps{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:13px 15px}
+.next-step-item{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--bd);font-size:12px;color:var(--mu);line-height:1.6}
+.next-step-item:last-child{border-bottom:none;padding-bottom:0}
+.next-step-num{width:22px;height:22px;border-radius:50%;background:rgba(212,165,116,.18);color:var(--ai);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.next-step-item b{color:var(--tx);font-weight:600}
+
+.empty{padding:36px 20px;text-align:center;color:var(--mu);font-size:12px;line-height:1.6}
+.empty-icon{font-size:34px;color:var(--bd2);margin-bottom:10px}
+
+.errbox{background:rgba(229,86,78,.07);border:1px solid rgba(229,86,78,.25);border-radius:12px;padding:14px 16px;color:var(--danger);font-size:12px;line-height:1.6}
+.errbox b{display:block;margin-bottom:6px;font-size:13px}
+
+.toast{position:fixed;top:24px;left:50%;transform:translateX(-50%);background:var(--s1);border:1px solid var(--brand);border-radius:11px;padding:11px 18px;font-size:12px;color:var(--tx);box-shadow:0 10px 30px rgba(0,0,0,.5);z-index:1000;opacity:0;transition:all .3s;pointer-events:none;font-weight:500}
+.toast.show{opacity:1}
+.toast.err{border-color:var(--danger);color:var(--danger)}
+
+.footer-note{margin-top:14px;text-align:center;font-size:10px;color:var(--mu2);letter-spacing:.5px}
+.footer-note span{color:var(--brand)}
+
+/* PWA INSTALL BANNER */
+.install-banner{display:none;background:linear-gradient(135deg,rgba(217,119,87,.15),rgba(217,119,87,.05));border:1px solid var(--brand);border-radius:14px;padding:14px 16px;margin-bottom:14px;align-items:center;gap:12px}
+.install-banner.show{display:flex}
+.install-banner-icon{font-size:28px;flex-shrink:0}
+.install-banner-text{flex:1;font-size:12px;color:var(--tx);line-height:1.5}
+.install-banner-text b{font-family:var(--ft);color:var(--brand);font-size:13px;display:block;margin-bottom:3px}
+.install-banner-btn{background:var(--brand);color:#1A1918;border:none;border-radius:8px;padding:9px 14px;font-family:var(--ft);font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.4px;flex-shrink:0}
+.install-banner-close{background:transparent;border:none;color:var(--mu);font-size:18px;cursor:pointer;padding:0 4px;flex-shrink:0}
+
+/* iOS INSTALL GUIDE (Safari has no native PWA install prompt) */
+.ios-install-guide{display:none;background:var(--s1);border:1px solid var(--info);border-radius:14px;padding:14px 16px;margin-bottom:14px}
+.ios-install-guide.show{display:block}
+.ios-install-title{font-family:var(--ft);font-size:13px;font-weight:700;color:var(--info);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.ios-install-step{display:flex;align-items:flex-start;gap:8px;font-size:11px;color:var(--mu);line-height:1.5;margin-top:6px}
+.ios-install-step b{color:var(--tx)}
+.ios-install-step .step-num{width:18px;height:18px;border-radius:50%;background:var(--info);color:#1A1918;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ios-install-close{margin-top:8px;text-align:center}
+.ios-install-close a{color:var(--mu);font-size:10px;text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="tagline">Authenticity <span>+</span> <em>Freshness</em> <span>•</span> AI vision</div>
+
+  <!-- PWA Install Banner (Android/Chrome) -->
+  <div class="install-banner" id="installBanner">
+    <div class="install-banner-icon">📲</div>
+    <div class="install-banner-text">
+      <b>Install FakeCheckApp</b>
+      Add to home screen for full-screen app experience
+    </div>
+    <button class="install-banner-btn" onclick="triggerInstall()">Install</button>
+    <button class="install-banner-close" onclick="dismissInstall()">✕</button>
+  </div>
+
+  <!-- iOS Install Guide (Safari has no native prompt) -->
+  <div class="ios-install-guide" id="iosInstallGuide">
+    <div class="ios-install-title">📲 Install on iPhone</div>
+    <div class="ios-install-step"><div class="step-num">1</div><div>Tap the <b>Share</b> button at the bottom of Safari (the square with the up-arrow ↗)</div></div>
+    <div class="ios-install-step"><div class="step-num">2</div><div>Scroll down and tap <b>"Add to Home Screen"</b></div></div>
+    <div class="ios-install-step"><div class="step-num">3</div><div>Tap <b>"Add"</b> in the top right — done!</div></div>
+    <div class="ios-install-close"><a href="#" onclick="dismissIosGuide(event)">Don't show again</a></div>
+  </div>
+
+  <div class="app">
+    <div class="top">
+      <div class="lg">Fake<span>Check</span><em style="display:block;font-size:9px;color:var(--mu);margin-top:2px;letter-spacing:.5px;font-style:normal;font-family:var(--ff)">by Edmond Azbel</em></div>
+      <div class="top-status" id="topStatus"><span class="dot"></span><span id="topStatusText">No AI key</span></div>
+    </div>
+
+    <div class="onboard" id="onboardBox">
+      <div class="onboard-title">🤖 Choose your AI provider</div>
+      <div class="onboard-sub">FakeCheckApp works with multiple AI vision providers. Pick the one you prefer — your key is stored only in your browser.</div>
+
+      <div class="ai-platforms">
+        <div class="ai-platform-card active" id="aiCardAnthropic" onclick="selectProvider('anthropic')">
+          <span class="ai-platform-badge active" id="aiBadgeAnthropic">SELECTED</span>
+          <div class="ai-platform-header">
+            <div class="ai-platform-logo anthropic">C</div>
+            <div class="ai-platform-name">Anthropic</div>
+          </div>
+          <div class="ai-platform-desc">Claude vision — most honest verdicts, best at uncertainty</div>
+          <span class="ai-platform-model">claude-opus-4-8</span>
+        </div>
+
+        <div class="ai-platform-card" id="aiCardOpenai" onclick="selectProvider('openai')">
+          <span class="ai-platform-badge" id="aiBadgeOpenai" style="display:none">SELECTED</span>
+          <div class="ai-platform-header">
+            <div class="ai-platform-logo openai">G</div>
+            <div class="ai-platform-name">OpenAI</div>
+          </div>
+          <div class="ai-platform-desc">GPT vision — broad knowledge, strong on consumer brands</div>
+          <span class="ai-platform-model">gpt-4o</span>
+        </div>
+
+        <div class="ai-platform-card" id="aiCardGemini" onclick="selectProvider('gemini')">
+          <span class="ai-platform-badge" id="aiBadgeGemini" style="display:none">SELECTED</span>
+          <div class="ai-platform-header">
+            <div class="ai-platform-logo gemini">✦</div>
+            <div class="ai-platform-name">Google Gemini</div>
+          </div>
+          <div class="ai-platform-desc">Gemini vision — strong multilingual, good for global products</div>
+          <span class="ai-platform-model">gemini-1.5-pro</span>
+        </div>
+
+        <div class="ai-platform-card coming-soon" id="aiCardMistral">
+          <span class="ai-platform-badge soon">SOON</span>
+          <div class="ai-platform-header">
+            <div class="ai-platform-logo mistral">M</div>
+            <div class="ai-platform-name">Mistral</div>
+          </div>
+          <div class="ai-platform-desc">Pixtral vision — European AI, strong on luxury goods</div>
+          <span class="ai-platform-model">pixtral-large</span>
+        </div>
+      </div>
+
+      <div class="provider-setup" id="providerSetupInfo">
+        <b>📋 Anthropic setup (5 min):</b>
+        <div class="provider-step"><div class="provider-step-num">1</div><div>Go to <a href="https://console.anthropic.com/settings/keys" target="_blank">console.anthropic.com</a> → sign up</div></div>
+        <div class="provider-step"><div class="provider-step-num">2</div><div>Add $5 credits in Billing (hundreds of scans)</div></div>
+        <div class="provider-step"><div class="provider-step-num">3</div><div>Create API key → copy it → paste below</div></div>
+      </div>
+
+      <div class="model-select-row" id="modelSelectRow" style="display:none">
+        <label>🧠 Choose model</label>
+        <select id="modelSelect" onchange="saveModelChoice()"></select>
+      </div>
+
+      <div class="onboard-input">
+        <input type="password" id="apiKey" placeholder="sk-ant-api03-..." autocomplete="off">
+        <button onclick="saveKey()">Save</button>
+      </div>
+      <div class="onboard-status" id="onboardStatus"></div>
+      <div class="onboard-skip"><a href="#" onclick="skipOnboarding(event)">Skip for now</a></div>
+    </div>
+
+    <div class="settings-bar" id="settingsBar" style="display:none">
+      <label>📍</label>
+      <select id="uC">
+        <option value="CA">Canada</option><option value="RU">Russia</option>
+        <option value="US">USA</option><option value="GB">UK</option>
+        <option value="AE">UAE</option><option value="NG">Nigeria</option>
+        <option value="FR">France</option><option value="DE">Germany</option>
+        <option value="JP">Japan</option><option value="CN">China</option>
+      </select>
+      <button class="settings-bar-mini" onclick="showOnboarding()">⚙ Key</button>
+    </div>
+
+    <!-- MODE TABS -->
+    <div class="mode-tabs">
+      <div class="mode-tab auth active" id="tabAuth" onclick="setMode('authenticity')">
+        <div class="mode-tab-icon">🛡️</div>
+        <div class="mode-tab-name">Authenticity</div>
+        <div class="mode-tab-desc">Brands & products</div>
+      </div>
+      <div class="mode-tab fresh" id="tabFresh" onclick="setMode('freshness')">
+        <div class="mode-tab-icon">🥬</div>
+        <div class="mode-tab-name">Freshness</div>
+        <div class="mode-tab-desc">Fruits & vegetables</div>
+      </div>
+    </div>
+
+    <div class="uploader">
+      <div class="uploader-title"><span class="uploader-title-num">1</span>Take photo of product</div>
+      <label for="photo0" class="primary-slot" id="slot0">
+        <button class="primary-remove" onclick="removePhoto(event,0)">✕</button>
+        <img class="primary-img" id="img0" alt="">
+        <div class="primary-icon">📸</div>
+        <div class="primary-text"><b>Tap to take photo or upload</b>Show the whole product clearly</div>
+      </label>
+      <input type="file" id="photo0" class="hidden-input" accept="image/*" capture="environment" onchange="handlePhoto(event,0)">
+
+      <div class="uploader-title"><span class="uploader-title-num">2</span>Optional close-ups (boost accuracy)</div>
+      <div class="secondary-row">
+        <label for="photo1" class="sec-slot" id="slot1">
+          <button class="sec-remove" onclick="removePhoto(event,1)">✕</button>
+          <img class="sec-img" id="img1" alt="">
+          <div class="sec-icon">🏷️</div>
+          <div class="sec-label">Logo</div>
+        </label>
+        <label for="photo2" class="sec-slot" id="slot2">
+          <button class="sec-remove" onclick="removePhoto(event,2)">✕</button>
+          <img class="sec-img" id="img2" alt="">
+          <div class="sec-icon">📊</div>
+          <div class="sec-label">Serial</div>
+        </label>
+        <label for="photo3" class="sec-slot" id="slot3">
+          <button class="sec-remove" onclick="removePhoto(event,3)">✕</button>
+          <img class="sec-img" id="img3" alt="">
+          <div class="sec-icon">🔬</div>
+          <div class="sec-label">Detail</div>
+        </label>
+      </div>
+      <input type="file" id="photo1" class="hidden-input" accept="image/*" capture="environment" onchange="handlePhoto(event,1)">
+      <input type="file" id="photo2" class="hidden-input" accept="image/*" capture="environment" onchange="handlePhoto(event,2)">
+      <input type="file" id="photo3" class="hidden-input" accept="image/*" capture="environment" onchange="handlePhoto(event,3)">
+
+      <div class="brand-input-row">
+        <label>💡 Brand hint (optional — makes checks deeper)</label>
+        <input id="brandHint" placeholder="e.g. Cartier, Rolex, Louis Vuitton, Apple..." autocomplete="off">
+      </div>
+
+      <button class="analyze-btn" id="analyzeBtn" onclick="analyze()" disabled>🤖 Analyze with AI</button>
+      <button class="analyze-btn-secondary" onclick="resetAll()">↻ Reset</button>
+    </div>
+
+    <div class="progress-panel" id="progressPanel">
+      <div class="progress-header">
+        <div class="progress-spinner"></div>
+        <div class="progress-title">Analyzing your product</div>
+        <div class="progress-subtitle">Running deep brand-specific checks</div>
+      </div>
+      <div class="progress-steps" id="progressSteps"></div>
+    </div>
+
+    <div id="emp" class="empty">
+      <div class="empty-icon">⊞</div>
+      Take a photo above → tap Analyze<br>AI identifies brand &amp; runs authenticity checks
+    </div>
+
+    <div class="res" id="res"></div>
+  </div>
+
+  <div class="footer-note">FakeCheckApp <span>•</span> Developed by <span style="color:var(--brand);font-weight:600">Edmond Azbel</span> <span>•</span> © 2026 <span>•</span> Patent pending<br><span style="font-size:9px;color:var(--mu2);margin-top:4px;display:inline-block">A development by Edmond Azbel — All Rights Reserved</span></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ===================================================================
+// FakeCheckApp - Copyright (c) 2026 Edmond Azbel. All Rights Reserved.
+// Author: Edmond Azbel (Canada) | Patent Pending
+// Proprietary - Unauthorized use, reproduction, or distribution prohibited.
+// ===================================================================
+var __copyright__ = Object.freeze({
+  owner: "Edmond Azbel",
+  year: "2026",
+  country: "Canada",
+  app: "FakeCheckApp",
+  license: "Proprietary - All Rights Reserved",
+  patent: "Pending",
+  notice: "Copyright (c) 2026 Edmond Azbel. All Rights Reserved."
+});
+try { Object.defineProperty(window, "__copyright__", {value: __copyright__, writable: false, configurable: false}); } catch(e) {}
+const COUNTRIES={CA:{n:'Canada'},RU:{n:'Russia'},US:{n:'USA'},GB:{n:'UK'},AE:{n:'UAE'},NG:{n:'Nigeria'},FR:{n:'France'},DE:{n:'Germany'},JP:{n:'Japan'},CN:{n:'China'}};
+
+const COUNTRY_FLAGS={CA:'🇨🇦',RU:'🇷🇺',US:'🇺🇸',GB:'🇬🇧',AE:'🇦🇪',NG:'🇳🇬',FR:'🇫🇷',DE:'🇩🇪',JP:'🇯🇵',CN:'🇨🇳'};
+function getCountryFlag(code){return COUNTRY_FLAGS[code]||'🌐'}
+
+const BRAND_DEEP_CHECKS={
+  cartier:`CARTIER-SPECIFIC: (1) Screws MUST be flathead (single line) — Phillips = AUTOMATIC FAKE. (2) Secret signature: hidden "CARTIER" between 7-10 o'clock on dial. (3) Cabochon crown stone: real is sapphire (clear deep blue), fake is glass/plastic. (4) Caseback engraving must be crisp, deep, with reference, "Swiss Made", serial (2-letter + 4-6 digit). (5) Roman numeral font weight — fakes too thick. (6) Cyclops date magnification ~2.5x.`,
+  rolex:`ROLEX-SPECIFIC: (1) Cyclops magnification 2.5x (fakes 1.5x). (2) Rehaut "ROLEX" engraving sharp. (3) Crown logo at 12 — 3D embossed, not printed. (4) Bracelet: solid links, never hollow. (5) Movement Swiss automatic. (6) Serial laser-etched at 6 between lugs (post-2005), micro-etched crown visible under loupe.`,
+  louisvuitton:`LV-SPECIFIC: (1) Date code: 2 letters + 4 digits (pre-2021) or microchip post-2021. (2) Stitching: 5 stitches/cm, mustard waxed thread, upward slant. (3) Monogram alignment: symmetric, never cut at seams. (4) Hardware: solid brass with "Louis Vuitton Paris" engraving. (5) Heat-stamp crisp & evenly spaced. (6) Lining: alcantara or microfiber.`,
+  chanel:`CHANEL: (1) Interlocking CC: right C overlaps left at TOP, left over right at BOTTOM. (2) Quilting diamonds: consistent stitches per diamond. (3) Hologram sticker (post-1986): rainbow shifting. (4) Authenticity card matches hologram serial. (5) Hardware: 24k gold-plated, never tarnishes. (6) Caviar: tight pebble grain; Lambskin: extremely soft.`,
+  hermes:`HERMÈS: (1) Saddle stitching ALWAYS hand-done — slight irregularity is GOOD. (2) Stamp "HERMÈS PARIS MADE IN FRANCE" + year letter in square (post-1971). (3) Hardware: solid palladium or gold-plated. (4) Lock: Hermès-marked. (5) Birkin/Kelly base: 4 brand-stamped metal feet.`,
+  nike:`NIKE: (1) Tongue label: stitched 4 sides (real) vs glued (fake). (2) Swoosh: tight stitching, no loose threads. (3) Insole removable, "Nike" embossed. (4) SKU on box = SKU inside tongue. (5) Air sole clear bubble, no glue stains. (6) Made-in: Vietnam, China, Indonesia.`,
+  jordan:`JORDAN: All Nike checks + (1) Jumpman 23 number correct angle on heel. (2) Carbon fiber plate: real weave pattern. (3) Box: orange wing logo for retro. (4) Stitching density 8-10/cm on swoosh.`,
+  adidas:`ADIDAS: (1) Three stripes EXACTLY parallel, equal width. (2) Trefoil/Performance clean lines. (3) Insole removable, "adidas" embossed. (4) Tongue tag: black on white. (5) Boost: visible TPU pellets, not smooth foam. (6) Made-in: Vietnam, China, Indonesia.`,
+  apple:`APPLE: (1) Serial at checkcoverage.apple.com — must show valid purchase date. (2) IMEI Luhn checksum passes. (3) Activation Lock should NOT be active. (4) Build: precise gaps, premium feel. (5) Camera: Night/Portrait modes work. (6) Charger: MFi-certified.`,
+  iphone:`IPHONE: All Apple + (1) Boot animation smooth. (2) Settings → About matches region. (3) Face ID/Touch ID works. (4) App Store is native Apple. (5) Weight matches spec (6.7" Pro Max = 240g).`,
+  smirnoff:`SMIRNOFF: (1) Tax strip MUST be present, country-specific (LCBO/AGCO CA, FSRAR RU, TTB US). (2) Label: high-res, correct CMYK. (3) Cap seal tamper-evident, breaks cleanly. (4) Bottle: "Smirnoff" embossed on base. (5) Batch code matches import country. (6) Liquid: clear, no sediment.`,
+  rayban:`RAY-BAN: (1) "RB" laser-etched on left lens (not painted). (2) "Ray-Ban" printed on right lens outside. (3) Temple inside: model + size (e.g. "RB3025 58-14"). (4) Hinges real metal, smooth. (5) Lenses: G-15/B-15 markings. (6) Box maroon for Aviator classic.`,
+  gucci:`GUCCI: (1) Serial tag 2 lines: model number + supplier code. (2) Made in Italy stamp deep & crisp. (3) GG monogram alignment never cut at seams. (4) Stitches 7-8/cm beige waxed thread. (5) Zipper: YKK or Lampo. (6) Hardware gold-plated brass with "Gucci" engraving.`,
+  prada:`PRADA: (1) Triangle plaque "PRADA MILANO" deep engraving. (2) Lining: black with white "Prada" logo repeated. (3) Authenticity card with QR code (post-2022). (4) Stitching tight, even, beige on Saffiano. (5) Saffiano: distinctive cross-hatch texture.`
+};
+
+function getBrandDeepCheck(hint){
+  if(!hint)return '';
+  const h=hint.toLowerCase().replace(/[\s-]+/g,'');
+  for(const [key,prompt] of Object.entries(BRAND_DEEP_CHECKS)){
+    if(h.includes(key))return prompt;
+  }
+  return '';
+}
+
+let photos=[null,null,null,null],apiKey=null,currentMode='authenticity';
+let userGPS=null; // {lat, lng, accuracy} when user grants permission
+
+// Request user's GPS location for nearby store search
+async function requestGPS(){
+  return new Promise((resolve)=>{
+    if(!navigator.geolocation){resolve(null);return}
+    navigator.geolocation.getCurrentPosition(
+      pos=>{
+        userGPS={lat:pos.coords.latitude,lng:pos.coords.longitude,accuracy:pos.coords.accuracy};
+        localStorage.setItem('fc_gps',JSON.stringify(userGPS));
+        localStorage.setItem('fc_gps_time',Date.now().toString());
+        resolve(userGPS);
+      },
+      err=>{console.warn('GPS denied:',err.message);resolve(null)},
+      {enableHighAccuracy:false,timeout:5000,maximumAge:300000}
+    );
+  });
+}
+
+// Load cached GPS if recent (within 1 hour)
+(function loadCachedGPS(){
+  const cached=localStorage.getItem('fc_gps');
+  const cachedTime=parseInt(localStorage.getItem('fc_gps_time')||'0');
+  if(cached&&(Date.now()-cachedTime)<3600000){
+    try{userGPS=JSON.parse(cached)}catch(e){}
+  }
+})();
+
+// Build a Google Maps "near me" search URL
+function nearMeMapURL(query){
+  if(userGPS){
+    return 'https://www.google.com/maps/search/'+encodeURIComponent(query)+'/@'+userGPS.lat+','+userGPS.lng+',13z';
+  }
+  return 'https://www.google.com/maps/search/'+encodeURIComponent(query+' near me');
+}
+
+// AI PROVIDERS configuration
+const AI_PROVIDERS={
+  anthropic:{
+    name:'Anthropic',
+    endpoint:'https://api.anthropic.com/v1/messages',
+    keyPrefix:'sk-ant-',
+    keyPlaceholder:'sk-ant-api03-...',
+    setupUrl:'https://console.anthropic.com/settings/keys',
+    setupLabel:'console.anthropic.com',
+    storageKey:'fc_key_anthropic',
+    models:[
+      {id:'claude-opus-4-8',name:'Claude Opus 4.8 (most capable, latest)'},
+      {id:'claude-opus-4-7',name:'Claude Opus 4.7 (previous flagship)'},
+      {id:'claude-sonnet-4-6',name:'Claude Sonnet 4.6 (faster, cheaper)'},
+      {id:'claude-haiku-4-5-20251001',name:'Claude Haiku 4.5 (cheapest)'}
+    ],
+    defaultModel:'claude-opus-4-8',
+    setupSteps:[
+      'Go to <a href="https://console.anthropic.com/settings/keys" target="_blank">console.anthropic.com</a> → sign up',
+      'Add $5 credits in Billing (hundreds of scans)',
+      'Create API key → copy it → paste below'
+    ]
+  },
+  openai:{
+    name:'OpenAI',
+    endpoint:'https://api.openai.com/v1/chat/completions',
+    keyPrefix:'sk-',
+    keyPlaceholder:'sk-proj-... or sk-...',
+    setupUrl:'https://platform.openai.com/api-keys',
+    setupLabel:'platform.openai.com',
+    storageKey:'fc_key_openai',
+    models:[
+      {id:'gpt-4o',name:'GPT-4o (recommended, vision)'},
+      {id:'gpt-4o-mini',name:'GPT-4o mini (cheaper, vision)'},
+      {id:'gpt-4-turbo',name:'GPT-4 Turbo (vision)'}
+    ],
+    defaultModel:'gpt-4o',
+    setupSteps:[
+      'Go to <a href="https://platform.openai.com/api-keys" target="_blank">platform.openai.com</a> → sign up',
+      'Add credits in Billing (~$5 = hundreds of scans)',
+      'Create secret key → copy it → paste below'
+    ]
+  },
+  gemini:{
+    name:'Google Gemini',
+    endpoint:'https://generativelanguage.googleapis.com/v1beta/models',
+    keyPrefix:'',
+    keyPlaceholder:'AIza... (Google API key)',
+    setupUrl:'https://aistudio.google.com/app/apikey',
+    setupLabel:'aistudio.google.com',
+    storageKey:'fc_key_gemini',
+    models:[
+      {id:'gemini-1.5-pro',name:'Gemini 1.5 Pro (most capable, vision)'},
+      {id:'gemini-1.5-flash',name:'Gemini 1.5 Flash (faster, cheaper)'},
+      {id:'gemini-2.0-flash-exp',name:'Gemini 2.0 Flash (experimental)'}
+    ],
+    defaultModel:'gemini-1.5-pro',
+    setupSteps:[
+      'Go to <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com</a> → sign in',
+      'Generous free tier (no card needed for basic use)',
+      'Click "Create API key" → copy it → paste below'
+    ]
+  }
+};
+
+let currentProvider='anthropic';
+let currentModel=AI_PROVIDERS.anthropic.defaultModel;
+
+function selectProvider(provider){
+  if(!AI_PROVIDERS[provider])return;
+  currentProvider=provider;
+  // Update card visual states
+  ['anthropic','openai','gemini'].forEach(p=>{
+    const card=document.getElementById('aiCard'+p.charAt(0).toUpperCase()+p.slice(1));
+    const badge=document.getElementById('aiBadge'+p.charAt(0).toUpperCase()+p.slice(1));
+    if(card){
+      card.classList.toggle('active',p===provider);
+    }
+    if(badge){
+      badge.style.display=p===provider?'inline-block':'none';
+    }
+  });
+  // Update provider-specific UI
+  const config=AI_PROVIDERS[provider];
+  const apiKeyInput=document.getElementById('apiKey');
+  apiKeyInput.placeholder=config.keyPlaceholder;
+  // Try to load existing key for this provider
+  const savedKey=localStorage.getItem(config.storageKey);
+  apiKeyInput.value=savedKey||'';
+  // Update setup info
+  const setupHTML='<b>📋 '+config.name+' setup ('+config.setupSteps.length+' steps):</b>'+
+    config.setupSteps.map((step,i)=>'<div class="provider-step"><div class="provider-step-num">'+(i+1)+'</div><div>'+step+'</div></div>').join('');
+  document.getElementById('providerSetupInfo').innerHTML=setupHTML;
+  // Populate model selector
+  const modelSelect=document.getElementById('modelSelect');
+  modelSelect.innerHTML=config.models.map(m=>'<option value="'+m.id+'">'+m.name+'</option>').join('');
+  // Restore saved model choice or default
+  const savedModel=localStorage.getItem('fc_model_'+provider);
+  currentModel=savedModel&&config.models.find(m=>m.id===savedModel)?savedModel:config.defaultModel;
+  modelSelect.value=currentModel;
+  document.getElementById('modelSelectRow').style.display='block';
+  // Save provider preference
+  localStorage.setItem('fc_provider',provider);
+  // If a key is already saved for this provider, activate it
+  if(savedKey){
+    apiKey=savedKey;
+    document.getElementById('topStatus').classList.add('connected');
+    document.getElementById('topStatusText').textContent=config.name+' connected';
+  }else{
+    apiKey=null;
+    document.getElementById('topStatus').classList.remove('connected');
+    document.getElementById('topStatusText').textContent='No '+config.name+' key';
+  }
+}
+
+function saveModelChoice(){
+  const sel=document.getElementById('modelSelect');
+  currentModel=sel.value;
+  localStorage.setItem('fc_model_'+currentProvider,currentModel);
+  showToast('Model changed to '+currentModel,false,2000);
+}
+
+// Called from "Enable GPS" link in stores panel
+async function enableGPSFromPanel(){
+  showToast('Requesting location permission...',false,2000);
+  const gps=await requestGPS();
+  if(gps){
+    showToast('✓ GPS enabled — re-run analysis for accurate store distances',false,3500);
+  }else{
+    showToast('Location permission denied — using country-only search',true,3500);
+  }
+}
+
+// Universal AI provider caller — returns parsed JSON result
+async function callAIProvider(prompt,photoList,maxTokens){
+  const config=AI_PROVIDERS[currentProvider];
+  if(!apiKey)throw new Error('No API key for '+config.name);
+
+  let response,aiText;
+
+  if(currentProvider==='anthropic'){
+    const imageBlocks=photoList.map(p=>({
+      type:'image',
+      source:{type:'base64',media_type:p.split(';')[0].split(':')[1],data:p.split(',')[1]}
+    }));
+    response=await fetch(config.endpoint,{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':apiKey,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:currentModel,
+        max_tokens:maxTokens||4000,
+        messages:[{role:'user',content:[...imageBlocks,{type:'text',text:prompt}]}]
+      })
+    });
+    if(!response.ok){const t=await response.text();throw new Error('Anthropic API '+response.status+': '+t.substring(0,300))}
+    const data=await response.json();
+    aiText=data.content[0].text;
+
+  }else if(currentProvider==='openai'){
+    // OpenAI uses different format: image_url with data URI
+    const contentArr=[{type:'text',text:prompt}];
+    photoList.forEach(p=>{contentArr.push({type:'image_url',image_url:{url:p}})});
+    response=await fetch(config.endpoint,{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':'Bearer '+apiKey
+      },
+      body:JSON.stringify({
+        model:currentModel,
+        max_tokens:maxTokens||4000,
+        messages:[{role:'user',content:contentArr}]
+      })
+    });
+    if(!response.ok){const t=await response.text();throw new Error('OpenAI API '+response.status+': '+t.substring(0,300))}
+    const data=await response.json();
+    aiText=data.choices[0].message.content;
+
+  }else if(currentProvider==='gemini'){
+    // Gemini uses inlineData with base64
+    const parts=[{text:prompt}];
+    photoList.forEach(p=>{
+      parts.push({
+        inlineData:{
+          mimeType:p.split(';')[0].split(':')[1],
+          data:p.split(',')[1]
+        }
+      });
+    });
+    const url=config.endpoint+'/'+currentModel+':generateContent?key='+encodeURIComponent(apiKey);
+    response=await fetch(url,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        contents:[{parts:parts}],
+        generationConfig:{maxOutputTokens:maxTokens||5000,temperature:0.2}
+      })
+    });
+    if(!response.ok){const t=await response.text();throw new Error('Gemini API '+response.status+': '+t.substring(0,300))}
+    const data=await response.json();
+    if(!data.candidates||!data.candidates[0])throw new Error('Gemini returned no candidates');
+    aiText=data.candidates[0].content.parts[0].text;
+  }else{
+    throw new Error('Unknown provider: '+currentProvider);
+  }
+
+  // Clean and parse JSON from any provider
+  aiText=aiText.trim().replace(/^```json\s*/,'').replace(/\s*```$/,'').replace(/^```\s*/,'');
+  // Extract first { ... } block in case of extra text
+  const jsonStart=aiText.indexOf('{');
+  const jsonEnd=aiText.lastIndexOf('}');
+  if(jsonStart>=0&&jsonEnd>jsonStart){
+    aiText=aiText.substring(jsonStart,jsonEnd+1);
+  }
+  return JSON.parse(aiText);
+}
+
+function setMode(mode){
+  currentMode=mode;
+  document.getElementById('tabAuth').classList.toggle('active',mode==='authenticity');
+  document.getElementById('tabFresh').classList.toggle('active',mode==='freshness');
+  const isFresh=mode==='freshness';
+  const primaryText=document.querySelector('.primary-text');
+  if(primaryText){
+    primaryText.innerHTML=isFresh
+      ?'<b>Tap to take photo or upload</b>Show the fruit or vegetable clearly'
+      :'<b>Tap to take photo or upload</b>Show the whole product clearly';
+  }
+  const brandLabel=document.querySelector('.brand-input-row label');
+  const brandInput=document.getElementById('brandHint');
+  if(brandLabel&&brandInput){
+    if(isFresh){
+      brandLabel.innerHTML='💡 Produce hint (optional — e.g. "tomato", "apple")';
+      brandInput.placeholder='e.g. Tomato, Apple, Banana, Lettuce, Broccoli...';
+    }else{
+      brandLabel.innerHTML='💡 Brand hint (optional — makes checks deeper)';
+      brandInput.placeholder='e.g. Cartier, Rolex, Louis Vuitton, Apple...';
+    }
+  }
+  const analyzeBtn=document.getElementById('analyzeBtn');
+  if(analyzeBtn){
+    analyzeBtn.innerHTML=isFresh?'🥬 Analyze freshness with AI':'🤖 Analyze with AI';
+    analyzeBtn.style.background=isFresh
+      ?'linear-gradient(135deg,#FFA528 0%,#E68A1A 100%)'
+      :'linear-gradient(135deg,var(--brand) 0%,var(--brand-dim) 100%)';
+    analyzeBtn.style.boxShadow=isFresh
+      ?'0 6px 22px rgba(255,165,40,.35)'
+      :'0 6px 22px rgba(217,119,87,.35)';
+  }
+  const empMsg=document.getElementById('emp');
+  if(empMsg){
+    empMsg.innerHTML=isFresh
+      ?'<div class="empty-icon">🥬</div>Photograph any fruit or vegetable<br>AI assesses freshness, ripeness & shelf life'
+      :'<div class="empty-icon">⊞</div>Take a photo above → tap Analyze<br>AI identifies brand &amp; runs authenticity checks';
+  }
+}
+
+function showToast(msg,isErr,duration){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast show'+(isErr?' err':'');
+  setTimeout(()=>t.className='toast'+(isErr?' err':''),duration||2800);
+}
+
+(function init(){
+  // Restore last selected provider, then activate it
+  const savedProvider=localStorage.getItem('fc_provider')||'anthropic';
+  selectProvider(savedProvider);
+  // Check if we have a key for the current provider
+  const config=AI_PROVIDERS[currentProvider];
+  const savedKey=localStorage.getItem(config.storageKey);
+  // Also migrate legacy key if it exists
+  const legacyKey=localStorage.getItem('fc_api_key');
+  if(!savedKey&&legacyKey&&legacyKey.startsWith('sk-ant-')){
+    localStorage.setItem(AI_PROVIDERS.anthropic.storageKey,legacyKey);
+    localStorage.removeItem('fc_api_key');
+  }
+  const finalKey=localStorage.getItem(config.storageKey);
+  if(finalKey){
+    apiKey=finalKey;
+    document.getElementById('apiKey').value=finalKey;
+    hideOnboarding(true);
+  }else{
+    showOnboarding();
+  }
+})();
+
+function showOnboarding(){
+  document.getElementById('onboardBox').classList.add('show');
+  document.getElementById('settingsBar').style.display='none';
+}
+
+function hideOnboarding(connected){
+  document.getElementById('onboardBox').classList.remove('show');
+  document.getElementById('settingsBar').style.display='flex';
+  const config=AI_PROVIDERS[currentProvider];
+  if(connected){
+    document.getElementById('topStatus').classList.add('connected');
+    document.getElementById('topStatusText').textContent=config.name+' connected';
+  }
+}
+
+function skipOnboarding(e){
+  if(e)e.preventDefault();
+  hideOnboarding(false);
+  showToast('Skipped — connect AI later via ⚙ Key',false,3500);
+}
+
+function saveKey(){
+  const k=document.getElementById('apiKey').value.trim();
+  const s=document.getElementById('onboardStatus');
+  const config=AI_PROVIDERS[currentProvider];
+  if(!k){s.className='onboard-status err';s.textContent='✕ Please enter a key';return}
+  if(config.keyPrefix&&!k.startsWith(config.keyPrefix)){
+    s.className='onboard-status err';
+    s.textContent='✕ '+config.name+' keys start with "'+config.keyPrefix+'"';
+    return;
+  }
+  // Store key per-provider
+  localStorage.setItem(config.storageKey,k);
+  apiKey=k;
+  s.className='onboard-status ok';
+  s.textContent='✓ '+config.name+' connected — ready to scan';
+  setTimeout(()=>hideOnboarding(true),900);
+}
+
+function handlePhoto(event,idx){
+  const file=event.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    photos[idx]=e.target.result;
+    document.getElementById('img'+idx).src=e.target.result;
+    document.getElementById('img'+idx).classList.add('active');
+    document.getElementById('slot'+idx).classList.add('has-photo');
+    if(photos[0])document.getElementById('analyzeBtn').disabled=false;
+  };
+  reader.readAsDataURL(file);
+}
+
+function removePhoto(event,idx){
+  event.preventDefault();event.stopPropagation();
+  photos[idx]=null;
+  document.getElementById('img'+idx).classList.remove('active');
+  document.getElementById('slot'+idx).classList.remove('has-photo');
+  document.getElementById('photo'+idx).value='';
+  if(!photos[0])document.getElementById('analyzeBtn').disabled=true;
+}
+
+function resetAll(){
+  for(let i=0;i<4;i++){
+    photos[i]=null;
+    document.getElementById('img'+i).classList.remove('active');
+    document.getElementById('slot'+i).classList.remove('has-photo');
+    document.getElementById('photo'+i).value='';
+  }
+  document.getElementById('analyzeBtn').disabled=true;
+  document.getElementById('brandHint').value='';
+  document.getElementById('emp').style.display='block';
+  document.getElementById('res').className='res';
+  document.getElementById('progressPanel').classList.remove('show');
+}
+
+async function analyze(){
+  if(!photos[0]){showToast('Take a photo first',true);return}
+  if(!apiKey){showOnboarding();showToast('Connect AI first',true);return}
+  if(currentMode==='freshness')return analyzeFreshness();
+  return analyzeAuthenticity();
+}
+
+async function analyzeAuthenticity(){
+  document.getElementById('emp').style.display='none';
+  document.getElementById('res').className='res';
+  document.getElementById('progressPanel').classList.add('show');
+
+  const country=COUNTRIES[document.getElementById('uC').value];
+  const photoCount=photos.filter(p=>p).length;
+  const brandHint=document.getElementById('brandHint').value.trim();
+  const deepCheck=getBrandDeepCheck(brandHint);
+
+  const steps=[
+    {n:'Loading '+photoCount+' photo'+(photoCount>1?'s':'')+' into AI vision',d:'Sending to '+AI_PROVIDERS[currentProvider].name},
+    {n:'Identifying brand and product',d:'Logo, font, color, shape analysis'},
+    {n:'Looking up price + release year',d:'MSRP, current market value, production years'},
+    {n:'Geo-location intelligence',d:'Manufacturing origin & distribution match to '+country.n},
+    {n:'Running 10-factor identification check',d:'Shape, color, design, logo, materials, hardware, stitching, barcode'},
+    {n:'Verifying vendor catalog match',d:'Was this exact design actually made by the brand?'},
+    {n:'Running '+(deepCheck?brandHint+'-specific deep checks':'authenticity checks'),d:deepCheck?'Brand-specific anti-counterfeit logic':'Universal authenticity checks'},
+    {n:'Finding cheapest nearby prices',d:'Best vendors in '+country.n+' — authorized, marketplace, local, resale'},
+    {n:'Computing confidence score',d:'Final verdict & reasoning'}
+  ];
+
+  document.getElementById('progressSteps').innerHTML=steps.map((s,i)=>`<div class="progress-step" id="pStep${i}"><div class="progress-step-num">${i+1}</div><div class="progress-step-text"><b>${s.n}</b><br><span style="font-size:10px">${s.d}</span></div></div>`).join('');
+
+  let currentStep=0;
+  document.getElementById('pStep0').classList.add('active');
+  const stepInt=setInterval(()=>{
+    if(currentStep<steps.length-1){
+      document.getElementById('pStep'+currentStep).classList.remove('active');
+      document.getElementById('pStep'+currentStep).classList.add('done');
+      currentStep++;
+      document.getElementById('pStep'+currentStep).classList.add('active');
+    }
+  },900);
+
+  const prompt=`You are an elite product authentication expert with deep specialization in luxury goods, sneakers, electronics, spirits, perfumes, and consumer products. You combine the rigor of a forensic examiner with the practical knowledge of brand specialists like Entrupy, Chrono24, StockX, and Apple GSX. Your verdicts are evidence-based, citing specific visual elements visible in the photo.
+
+CORE PRINCIPLES:
+1. EXAMINE FIRST, CONCLUDE SECOND. Look at every visible detail before deciding.
+2. CITE EVIDENCE. Every check status (pass/fail/warn) must reference what you actually see in the photo.
+3. ADMIT UNCERTAINTY. If a photo angle hides something, say "na" and explain what additional shot would help.
+4. NEVER GUESS. If brand confidence is below 70%, mark verdict as "unknown" — do not invent a brand.
+5. CONSIDER VENDOR HISTORY. Many fakes exist in colorways/configurations the brand never made.
+6. WEIGH ALL FACTORS. A 90% perfect logo with wrong stitching is still suspicious.
+
+${deepCheck?'CRITICAL — Apply these brand-specific anti-counterfeit checks: '+deepCheck:''}
+
+USER CONTEXT:
+- Country of scan: ${country.n}
+- Photo count: ${photoCount}
+- Brand hint from user: ${brandHint||'none — you must identify the product yourself'}
+
+Respond ONLY in this JSON (no markdown, no text outside JSON):
+
+{
+  "brand": "identified brand or Unknown",
+  "product_name": "specific product + model/reference",
+  "category": "Footwear|Spirits|Watch|Handbag|Electronics|Perfume|Eyewear|Apparel|Jewelry|Cosmetics|Other",
+  "original_retail_price_usd": "original MSRP at launch in USD e.g. $1,200",
+  "current_market_value_usd": "estimated price range today in USD e.g. $3,500-$5,500",
+  "value_trend": "appreciating|stable|depreciating",
+  "release_year": "year released e.g. 2003",
+  "release_period": "production years e.g. 2003-2013 or 'still in production'",
+  "discontinued": true|false,
+  "vendor_design_match": "yes|no|unsure",
+  "vendor_design_note": "1-2 sentences explaining whether this exact design/colorway/configuration was actually produced by the official vendor",
+  "official_vendor_url": "URL to the official brand product page or empty string",
+
+  "geo_intelligence": {
+    "manufacturing_country": "country where this product is typically MADE by the brand (e.g. Switzerland for Rolex, Vietnam for Nike)",
+    "manufacturing_flag": "country emoji flag like 🇨🇭",
+    "expected_distribution_countries": ["country1","country2","country3"],
+    "scan_country_matches_distribution": "yes|no|unsure",
+    "geo_verdict": "natural|grey_market|impossible|unknown",
+    "geo_explanation": "2-3 sentences explaining: where this product is made, what countries it's officially distributed to, and whether finding it in ${country.n} is normal, grey-market, or impossible. e.g. 'Rolex watches are manufactured in Switzerland and officially distributed worldwide through authorized dealers including Canada. Finding this in Canada is normal.' OR 'Smirnoff sold in Russia uses Cyrillic labels and EAN-13 460-prefix barcodes. This bottle has a North American UPC-A 081-prefix label, suggesting grey-market import.'",
+    "regional_authentication_authority": "name of regional body that would verify this (e.g. CBSA for Canada, FSRAR for Russia)"
+  },
+
+  "multi_factor_identification": {
+    "shape": {"status":"pass|fail|warn|na","detail":"silhouette/proportions vs official spec"},
+    "color": {"status":"pass|fail|warn|na","detail":"colorway match vs official catalog colors"},
+    "design_pattern": {"status":"pass|fail|warn|na","detail":"pattern/motif/layout vs original"},
+    "logo": {"status":"pass|fail|warn|na","detail":"logo geometry, position, depth vs spec"},
+    "typography": {"status":"pass|fail|warn|na","detail":"font weight, kerning, alignment vs spec"},
+    "materials": {"status":"pass|fail|warn|na","detail":"material quality, texture, finish"},
+    "hardware": {"status":"pass|fail|warn|na","detail":"screws, zippers, clasps, hinges"},
+    "stitching_construction": {"status":"pass|fail|warn|na","detail":"stitching density, seam quality, construction"},
+    "barcode_serial": {"status":"pass|fail|warn|na","detail":"barcode/serial format if visible, expected format if not"},
+    "packaging": {"status":"pass|fail|warn|na","detail":"box, tags, documentation if visible"}
+  },
+
+  "brand_confidence": 0-100,
+  "brand_features_detected": ["feature1","feature2","feature3","feature4"],
+  "authenticity_verdict": "authentic|counterfeit|suspicious|unknown",
+  "authenticity_score": 0-100,
+  "ai_reasoning": "3-4 sentences explaining the verdict with specific visual evidence",
+  "verification_checks": [
+    {"check":"name","status":"pass|fail|warn|na","detail":"observation"},
+    {"check":"name","status":"pass|fail|warn|na","detail":"observation"},
+    {"check":"name","status":"pass|fail|warn|na","detail":"observation"},
+    {"check":"name","status":"pass|fail|warn|na","detail":"observation"},
+    {"check":"name","status":"pass|fail|warn|na","detail":"observation"}
+  ],
+  "brand_specific_checks": ${deepCheck?'[{"check":"name","status":"pass|fail|warn|na","detail":"finding"}]':'[]'},
+  "nearby_pricing": {
+    "best_deal_vendor": "vendor name where user can get the best price near ${country.n}",
+    "best_deal_price_usd": "estimated price in USD e.g. $3200",
+    "best_deal_type": "authorized|marketplace|local|resale|online",
+    "best_deal_note": "1 sentence why this is the best (price, condition, warranty, availability)",
+    "best_deal_search_url": "direct search URL to find this product on that vendor",
+    "vendors": [
+      {"name":"vendor name","type":"authorized|marketplace|local|resale|online","price_usd":"$XXXX","location_note":"availability for ${country.n}","search_url":"direct search URL","savings_vs_msrp":"e.g. 'Save 20% vs new'"},
+      {"name":"vendor name","type":"authorized|marketplace|local|resale|online","price_usd":"$XXXX","location_note":"availability for ${country.n}","search_url":"direct search URL","savings_vs_msrp":""},
+      {"name":"vendor name","type":"authorized|marketplace|local|resale|online","price_usd":"$XXXX","location_note":"availability for ${country.n}","search_url":"direct search URL","savings_vs_msrp":""},
+      {"name":"vendor name","type":"authorized|marketplace|local|resale|online","price_usd":"$XXXX","location_note":"availability for ${country.n}","search_url":"direct search URL","savings_vs_msrp":""}
+    ],
+    "shopping_tips": "1-2 sentences with practical buying advice for this product in ${country.n}"
+  },
+  "next_steps": ["action 1","action 2","action 3"],
+  "synopsis": "2 sentence summary",
+  "conclusion": "Clear verdict + next action"
+}
+
+CRITICAL INSTRUCTIONS:
+1. VENDOR_DESIGN_MATCH — Search your memory: did this brand ACTUALLY produce this exact design/colorway/configuration? Many counterfeits exist in versions the brand never made. A "pink Rolex Submariner" = no. A "Cartier Roadster with leather strap and silver Roman dial" = yes. If unsure, say unsure.
+2. GEO_INTELLIGENCE — Reason through three nodes: WHERE is this made (e.g. Swiss watches, Vietnamese sneakers, French perfumes), WHERE is it officially distributed (global vs regional), and DOES finding it in ${country.n} match? Outcomes: natural (normal), grey_market (real but diverted from intended market — often via barcode/label mismatch), impossible (geographic combination the brand wouldn't produce).
+3. MULTI_FACTOR_IDENTIFICATION — Score each of 10 factors INDEPENDENTLY based on what's actually visible. Use "na" only when truly not visible. Avoid "na" cascade — at least 6 of 10 should have real status.
+4. AUTHENTICITY_SCORE — Be calibrated: 90-100 = high confidence authentic with multiple confirming evidence; 70-89 = likely authentic but missing some verification; 50-69 = suspicious or insufficient evidence; 30-49 = strong counterfeit indicators; 0-29 = clear counterfeit.
+5. AI_REASONING — Cite SPECIFIC visual evidence: not "the logo looks right" but "the Cartier wordmark at 12 o'clock shows correct serif weight and even kerning". Reference photo elements directly.
+6. NEXT_STEPS — Give 3 ACTIONABLE recommendations: specific close-up photos to take, specific authentication services, specific things to check physically. No vague advice.
+7. NEVER fabricate prices, release years, or vendor URLs you don't actually know. If unsure, say "Unknown" rather than guessing.
+8. NEARBY_PRICING — Recommend 4 realistic vendors where someone in ${country.n} could buy this product:
+   - Mix of TYPES: 1 authorized retailer, 1 marketplace (eBay/StockX/Chrono24/etc.), 1 local-to-${country.n} vendor, 1 resale platform
+   - Examples for Canada: Holt Renfrew (authorized), Chrono24 (marketplace), TheRealReal (resale), eBay.ca (online)
+   - Examples for USA: Bloomingdale's, StockX, Chrono24, eBay
+   - Examples for UK: Selfridges, Watches of Switzerland, Chrono24, eBay.co.uk
+   - Examples for France: Le Bon Marché, Vestiaire Collective (Paris-based), Chrono24, Leboncoin
+   - Examples for UAE: Dubai Mall boutiques, Chrono24, The Watch Hospital
+   - PRICES should reflect realistic ranges based on condition (new vs pre-owned)
+   - URLs should be VALID brand/marketplace search URLs (e.g. https://www.chrono24.com/search/index.htm?query=cartier+roadster)
+   - BEST DEAL is the one with best value (lowest price for authentic + reasonable warranty/condition)
+   - For brand-new items still in production: prioritize authorized retailers
+   - For discontinued items: prioritize trusted resale (Chrono24, TheRealReal, Bob's Watches, StockX)
+   - For Apple/electronics: include Apple's official refurbished store, Best Buy, Swappa
+   - For sneakers: StockX, GOAT, Flight Club
+   - For perfumes/spirits: Sephora/LCBO/SAQ/local equivalent
+   - If you don't know real URLs, construct realistic search URLs using known patterns`;
+
+  try{
+    const photoList=photos.filter(p=>p);
+    const result=await callAIProvider(prompt,photoList,5000);
+
+    clearInterval(stepInt);
+    for(let i=0;i<steps.length;i++){
+      document.getElementById('pStep'+i).classList.remove('active');
+      document.getElementById('pStep'+i).classList.add('done');
+    }
+
+    setTimeout(()=>{document.getElementById('progressPanel').classList.remove('show');renderResult(result)},500);
+
+  }catch(err){
+    clearInterval(stepInt);
+    document.getElementById('progressPanel').classList.remove('show');
+    let msg=err.message;
+    const cfgName=AI_PROVIDERS[currentProvider].name;
+    if(msg.includes('401')||msg.includes('authentication'))msg=cfgName+' API key invalid. Tap ⚙ Key at top to update.';
+    else if(msg.includes('429'))msg='Too many requests. Wait 30s and try again.';
+    else if(msg.includes('credit')||msg.includes('insufficient')||msg.includes('quota'))msg='No API credits/quota left for '+cfgName+'. Add credits in your '+cfgName+' dashboard.';
+    else if(msg.includes('Failed to fetch'))msg='Network error. Check internet.';
+    document.getElementById('res').innerHTML=`<div class="errbox"><b>⚠ Analysis failed</b>${msg}</div>`;
+    document.getElementById('res').className='res on';
+  }
+}
+
+function renderResult(r){
+  const country=COUNTRIES[document.getElementById('uC').value];
+  const v=r.authenticity_verdict||'unknown';
+  const sc=r.authenticity_score||0;
+  const vm={authentic:{vc:'vd-real',ic:'vi-r',icon:'✓',lbl:'AUTHENTIC',lc:'vl-r'},counterfeit:{vc:'vd-fake',ic:'vi-f',icon:'✕',lbl:'COUNTERFEIT',lc:'vl-f'},suspicious:{vc:'vd-sus',ic:'vi-s',icon:'⚠',lbl:'SUSPICIOUS',lc:'vl-s'},unknown:{vc:'vd-unk',ic:'vi-u',icon:'?',lbl:'UNVERIFIED',lc:'vl-u'}}[v];
+  const scc=sc>=80?'var(--brand)':sc>=50?'var(--warn)':sc>0?'var(--danger)':'var(--mu)';
+  const cc=v==='authentic'?'var(--brand)':v==='counterfeit'?'var(--danger)':v==='suspicious'?'var(--warn)':'var(--mu)';
+
+  const featH=(r.brand_features_detected||[]).map(f=>`<div class="ai-check"><div class="ai-check-ico check-ok">✓</div><div>${f}</div></div>`).join('');
+  const chkH=(r.verification_checks||[]).map(c=>{const cls=c.status==='pass'?'check-ok':c.status==='fail'?'check-bad':c.status==='warn'?'check-warn':'check-info';const ic=c.status==='pass'?'✓':c.status==='fail'?'✕':c.status==='warn'?'!':'i';return `<div class="ai-check"><div class="ai-check-ico ${cls}">${ic}</div><div><b>${c.check}:</b> ${c.detail}</div></div>`}).join('');
+  const brandChksH=(r.brand_specific_checks||[]).map(c=>{const cls=c.status==='pass'?'check-ok':c.status==='fail'?'check-bad':c.status==='warn'?'check-warn':'check-info';const ic=c.status==='pass'?'✓':c.status==='fail'?'✕':c.status==='warn'?'!':'i';return `<div class="ai-check"><div class="ai-check-ico ${cls}">${ic}</div><div><b>${c.check}:</b> ${c.detail}</div></div>`}).join('');
+  const nextH=(r.next_steps||[]).map((s,i)=>`<div class="next-step-item"><div class="next-step-num">${i+1}</div><div>${s}</div></div>`).join('');
+
+  // NEARBY PRICING panel builder
+  let nearbyH='';
+  const np=r.nearby_pricing;
+  if(np&&np.vendors&&np.vendors.length>0){
+    const tagColor=(t)=>{
+      if(t==='authorized')return 'tag-authorized';
+      if(t==='marketplace')return 'tag-marketplace';
+      if(t==='local')return 'tag-local';
+      if(t==='resale')return 'tag-resale';
+      return 'tag-marketplace';
+    };
+    const tagLabel=(t)=>{
+      if(t==='authorized')return 'AUTHORIZED';
+      if(t==='marketplace')return 'MARKETPLACE';
+      if(t==='local')return 'LOCAL';
+      if(t==='resale')return 'RESALE';
+      if(t==='online')return 'ONLINE';
+      return t.toUpperCase();
+    };
+    const safeUrl=(u)=>u&&u.startsWith('http')?u:'#';
+
+    // Sort vendors by price (parse $ amounts)
+    const parsePrice=(p)=>{const m=String(p||'').match(/\$?([\d,]+)/);return m?parseInt(m[1].replace(/,/g,'')):999999};
+    const sortedVendors=[...np.vendors].sort((a,b)=>parsePrice(a.price_usd)-parsePrice(b.price_usd));
+
+    const bestUrl=safeUrl(np.best_deal_search_url||sortedVendors[0]?.search_url);
+    const bestType=np.best_deal_type||sortedVendors[0]?.type||'marketplace';
+
+    const vendorRowsH=sortedVendors.map((v,i)=>`
+      <a class="nearby-vendor-row" href="${safeUrl(v.search_url)}" target="_blank" rel="noopener">
+        <div class="nearby-vendor-rank">${i+1}</div>
+        <div class="nearby-vendor-info">
+          <div class="nearby-vendor-name">${v.name||'Vendor'} <span class="nearby-vendor-tag ${tagColor(v.type)}">${tagLabel(v.type||'online')}</span></div>
+          <div class="nearby-vendor-meta">${v.location_note||''}</div>
+        </div>
+        <div class="nearby-vendor-price">
+          <div class="nearby-vendor-price-val">${v.price_usd||'—'}</div>
+          <div class="nearby-vendor-price-lbl">USD</div>
+          ${v.savings_vs_msrp?`<div class="nearby-savings">${v.savings_vs_msrp}</div>`:''}
+        </div>
+      </a>`).join('');
+
+    nearbyH=`
+    <div>
+      <div class="section-title">💰 Nearby cheapest price · ${country.n}</div>
+      <div class="nearby-panel">
+        <div class="nearby-header">
+          <div class="nearby-icon">💰</div>
+          <div>
+            <div class="nearby-title">Where to buy near you</div>
+            <div class="nearby-subtitle">Best prices for ${r.brand||'this product'} in ${country.n}</div>
+          </div>
+        </div>
+
+        <div class="nearby-best-deal" style="margin-top:14px">
+          <div class="nearby-best-row">
+            <div class="nearby-best-price">${np.best_deal_price_usd||sortedVendors[0]?.price_usd||'—'}</div>
+            <div class="nearby-best-info">
+              <div class="nearby-best-vendor">${np.best_deal_vendor||sortedVendors[0]?.name||'Best vendor'} <span class="nearby-vendor-tag ${tagColor(bestType)}">${tagLabel(bestType)}</span></div>
+              <div class="nearby-best-meta">${np.best_deal_note||sortedVendors[0]?.location_note||''}</div>
+            </div>
+          </div>
+          <div class="nearby-best-action">
+            <a class="nearby-action-btn" href="${bestUrl}" target="_blank" rel="noopener">🛒 Check availability →</a>
+            <a class="nearby-action-btn secondary" href="https://www.google.com/search?q=${encodeURIComponent((r.brand||'')+' '+(r.product_name||'')+' '+country.n+' price')}" target="_blank" rel="noopener">🔎 More results</a>
+          </div>
+        </div>
+
+        <div class="nearby-vendor-list">${vendorRowsH}</div>
+
+        ${np.shopping_tips?`<div class="nearby-disclaimer">💡 ${np.shopping_tips}</div>`:''}
+        <div class="nearby-disclaimer">⚠️ Prices are AI estimates based on typical market values. Always verify final price with vendor before purchase.</div>
+      </div>
+    </div>`;
+  }
+
+  // STORES NEAR ME builder
+  let storesNearMeH='';
+  const brandForSearch=(r.brand||'').trim();
+  const productForSearch=brandForSearch+' '+(r.product_name||'').split(' ').slice(0,3).join(' ');
+  const category=(r.category||'').toLowerCase();
+  // Category-specific quick searches
+  const quickSearches=[];
+  if(brandForSearch){
+    quickSearches.push({icon:'🏪',label:brandForSearch+' boutique',sub:'Official stores',q:brandForSearch+' store'});
+    quickSearches.push({icon:'🛍️',label:'Authorized dealers',sub:'Verified retailers',q:brandForSearch+' authorized dealer'});
+  }
+  if(/watch/.test(category)){
+    quickSearches.push({icon:'⌚',label:'Watch dealers',sub:'Pre-owned & new',q:'watch dealer'});
+    quickSearches.push({icon:'🔧',label:'Watch repair',sub:'Authentication services',q:'watch authentication repair'});
+  }else if(/footwear|sneaker|shoe/.test(category)){
+    quickSearches.push({icon:'👟',label:'Sneaker stores',sub:'Local resellers',q:'sneaker store'});
+    quickSearches.push({icon:'🏷️',label:'Foot Locker',sub:'Chain stores',q:'foot locker'});
+  }else if(/handbag|bag|leather/.test(category)){
+    quickSearches.push({icon:'👜',label:'Luxury consignment',sub:'Pre-owned designer',q:'luxury consignment store'});
+    quickSearches.push({icon:'🏬',label:'Department stores',sub:'Designer departments',q:'department store designer handbags'});
+  }else if(/electronic|phone|apple|iphone|laptop/.test(category)){
+    quickSearches.push({icon:'📱',label:'Electronics stores',sub:'Phones & tech',q:'electronics store'});
+    quickSearches.push({icon:'🔌',label:'Apple Store',sub:'Official + repair',q:'apple store'});
+  }else if(/perfume|cosmetic|fragrance/.test(category)){
+    quickSearches.push({icon:'💄',label:'Sephora',sub:'Beauty retailer',q:'sephora'});
+    quickSearches.push({icon:'🏬',label:'Department stores',sub:'Beauty counters',q:'department store beauty'});
+  }else if(/spirit|wine|vodka|whisky|alcohol/.test(category)){
+    quickSearches.push({icon:'🍷',label:'Liquor stores',sub:'Licensed retailers',q:'liquor store'});
+    quickSearches.push({icon:'🍾',label:'Wine merchants',sub:'Specialty shops',q:'wine merchant'});
+  }else if(/jewelry|jewelery|ring|necklace/.test(category)){
+    quickSearches.push({icon:'💎',label:'Jewelers',sub:'Local jewelry stores',q:'jeweler'});
+    quickSearches.push({icon:'🏬',label:'Pawn shops',sub:'Pre-owned items',q:'reputable pawn shop'});
+  }else if(currentMode==='freshness'||/fruit|vegetable|produce/.test(category)){
+    quickSearches.push({icon:'🥬',label:'Grocery stores',sub:'Fresh produce',q:'grocery store fresh produce'});
+    quickSearches.push({icon:'🌾',label:'Farmers markets',sub:'Local & fresh',q:'farmers market'});
+    quickSearches.push({icon:'🌿',label:'Organic stores',sub:'Whole Foods etc',q:'organic grocery store'});
+    quickSearches.push({icon:'🥕',label:'Produce markets',sub:'Specialty shops',q:'produce market'});
+  }
+  // Always add a generic option
+  if(quickSearches.length<4){
+    quickSearches.push({icon:'🏬',label:'Local retailers',sub:'Any nearby store',q:brandForSearch||'product'});
+  }
+
+  const gpsStatus=userGPS?'<span class="gps-status on">📍 GPS active</span>':'<span class="gps-status off" onclick="enableGPSFromPanel()">📍 Enable GPS</span>';
+
+  const quickH=quickSearches.slice(0,4).map(qs=>{
+    const url=nearMeMapURL(qs.q);
+    return `<a class="store-search-btn" href="${url}" target="_blank" rel="noopener"><div class="store-search-btn-icon">${qs.icon}</div><div class="store-search-btn-label">${qs.label}</div><div class="store-search-btn-sub">${qs.sub}</div></a>`;
+  }).join('');
+
+  const mainSearchURL=nearMeMapURL(productForSearch);
+
+  storesNearMeH=`
+    <div>
+      <div class="section-title">📍 Stores near me</div>
+      <div class="stores-panel">
+        <div class="stores-header">
+          <div class="stores-icon">📍</div>
+          <div style="flex:1">
+            <div class="stores-title">Find physical stores near you</div>
+            <div class="stores-subtitle">${userGPS?'Using your real GPS location':'Tap below to enable GPS for accurate results'}</div>
+          </div>
+          ${gpsStatus}
+        </div>
+        <a class="store-primary-btn" href="${mainSearchURL}" target="_blank" rel="noopener">🗺️ Open in Google Maps — ${brandForSearch||'this product'} near me</a>
+        <div class="store-search-grid">${quickH}</div>
+        <div class="nearby-disclaimer">📍 Opens Google Maps with location-aware search. Enable GPS for store distances and directions from your exact spot.</div>
+      </div>
+    </div>`;
+
+  const photoHTML=photos[0]?`<img src="${photos[0]}" alt="">`:'?';
+
+  // NEW: vendor match logic
+  const vMatch=r.vendor_design_match||'unsure';
+  const vendorBadge=vMatch==='yes'?'<span class="vendor-match-badge vmb-yes">✓ Confirmed from vendor</span>':vMatch==='no'?'<span class="vendor-match-badge vmb-no">✕ Not made by vendor</span>':'<span class="vendor-match-badge vmb-warn">? Cannot confirm</span>';
+  const vendorCellClass=vMatch==='yes'?'highlight-real':vMatch==='no'?'highlight-fake':'highlight-warn';
+
+  // Trend indicator
+  const trend=r.value_trend||'';
+  const trendIcon=trend==='appreciating'?'📈':trend==='depreciating'?'📉':'➡️';
+  const trendColor=trend==='appreciating'?'var(--brand)':trend==='depreciating'?'var(--danger)':'var(--mu)';
+
+  // Discontinued status
+  const discText=r.discontinued?'⚠️ Discontinued':'✓ Still produced';
+  const discColor=r.discontinued?'var(--warn)':'var(--brand)';
+
+  // Official URL link
+  const officialLink=r.official_vendor_url?`<a href="${r.official_vendor_url}" target="_blank" style="color:var(--info);text-decoration:underline;font-size:11px;display:inline-block;margin-top:6px">🔗 View official reference →</a>`:'';
+
+  // NEW: Geo intelligence
+  const geo=r.geo_intelligence||{};
+  const geoVerdict=geo.geo_verdict||'unknown';
+  const geoVerdictMap={
+    natural:{cls:'match',ic:'✓',title:'Natural distribution match'},
+    grey_market:{cls:'warn',ic:'⚠',title:'Grey market import detected'},
+    impossible:{cls:'mismatch',ic:'✕',title:'Geographic impossibility — strong counterfeit signal'},
+    unknown:{cls:'warn',ic:'?',title:'Cannot determine geo match'}
+  };
+  const gv=geoVerdictMap[geoVerdict]||geoVerdictMap.unknown;
+  const arrowClass=geoVerdict==='natural'?'match':geoVerdict==='impossible'?'mismatch':'warn';
+  const expectedCountries=(geo.expected_distribution_countries||[]).slice(0,3).join(', ');
+  const scanFlag=getCountryFlag(document.getElementById('uC').value);
+
+  // NEW: Multi-factor identification
+  const mfa=r.multi_factor_identification||{};
+  const mfaFactors=[
+    {key:'shape',label:'Shape & proportions',icon:'⬡'},
+    {key:'color',label:'Color & finish',icon:'🎨'},
+    {key:'design_pattern',label:'Design pattern',icon:'◈'},
+    {key:'logo',label:'Logo geometry',icon:'⌖'},
+    {key:'typography',label:'Typography',icon:'A'},
+    {key:'materials',label:'Materials',icon:'⊞'},
+    {key:'hardware',label:'Hardware',icon:'⚙'},
+    {key:'stitching_construction',label:'Stitching/build',icon:'━'},
+    {key:'barcode_serial',label:'Barcode/serial',icon:'║'},
+    {key:'packaging',label:'Packaging',icon:'📦'}
+  ];
+  const mfaH=mfaFactors.map(f=>{
+    const data=mfa[f.key]||{status:'na',detail:'Not visible in photo'};
+    const cls=data.status==='pass'?'pass':data.status==='fail'?'fail':data.status==='warn'?'warn':'na';
+    const ic=data.status==='pass'?'✓':data.status==='fail'?'✕':data.status==='warn'?'!':'·';
+    return `<div class="mfa-cell ${cls}"><div class="mfa-cell-icon">${ic}</div><div class="mfa-cell-content"><div class="mfa-cell-label">${f.label}</div><div class="mfa-cell-value">${data.detail||'No data'}</div></div></div>`;
+  }).join('');
+
+  document.getElementById('res').innerHTML=`
+    <div class="rh"><div class="bi">${photoHTML}</div><div class="binfo"><h3>${r.brand||'Unknown'} — ${r.product_name||'Unidentified'}</h3><p>${r.category||'?'} · 📍 ${country.n}</p></div></div>
+
+    <div class="vd ${vm.vc}"><div class="vi ${vm.ic}">${vm.icon}</div><div><div class="vl ${vm.lc}">${vm.lbl}</div><div class="vsub">AI verdict · ${r.brand||'Unknown'}</div></div><div class="vsc"><div class="vsn" style="color:${scc}">${sc}</div><div class="vstag">/ 100</div></div></div>
+
+    <div class="score-bar"><div class="score-fill" style="width:0%;background:${scc}" id="sf"></div></div>
+
+    <div>
+      <div class="section-title">💰 Product information</div>
+      <div class="info-panel">
+        <div class="info-cell">
+          <div class="info-label">💵 Original retail (USD)</div>
+          <div class="info-value">${r.original_retail_price_usd||'Unknown'}</div>
+          <div class="info-sub">MSRP at launch</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-label">${trendIcon} Market value today</div>
+          <div class="info-value" style="color:${trendColor}">${r.current_market_value_usd||'Unknown'}</div>
+          <div class="info-sub" style="text-transform:capitalize">${trend||'value trend unknown'}</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-label">📅 Released</div>
+          <div class="info-value-sm">${r.release_year||'Unknown year'}</div>
+          <div class="info-sub">${r.release_period||''}</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-label">🏭 Production status</div>
+          <div class="info-value-sm" style="color:${discColor}">${discText}</div>
+          <div class="info-sub">${r.discontinued?'Now collector / pre-owned only':'Available from authorized dealers'}</div>
+        </div>
+        <div class="info-cell full ${vendorCellClass}">
+          <div class="info-label">🏷️ Was this design actually produced by the official vendor?</div>
+          ${vendorBadge}
+          <div class="info-sub" style="margin-top:7px;font-size:11px;color:var(--tx);line-height:1.6">${r.vendor_design_note||'Could not verify against vendor catalog'}</div>
+          ${officialLink}
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-title">🌍 Geo-location intelligence</div>
+      <div class="geo-panel">
+        <div class="geo-header">
+          <div class="geo-icon">🌍</div>
+          <div>
+            <div class="geo-title">Manufacturing origin → Distribution check</div>
+            <div class="geo-subtitle">Verifying if finding this product in ${country.n} matches normal distribution</div>
+          </div>
+        </div>
+        <div class="geo-flow">
+          <div class="geo-node">
+            <div class="geo-flag">${geo.manufacturing_flag||'🏭'}</div>
+            <div class="geo-node-label">Made in</div>
+            <div class="geo-node-name">${geo.manufacturing_country||'Unknown'}</div>
+          </div>
+          <div class="geo-arrow ${arrowClass}">→</div>
+          <div class="geo-node">
+            <div class="geo-flag">🌐</div>
+            <div class="geo-node-label">Distributed to</div>
+            <div class="geo-node-name">${expectedCountries||'Various markets'}</div>
+          </div>
+          <div class="geo-arrow ${arrowClass}">→</div>
+          <div class="geo-node">
+            <div class="geo-flag">${scanFlag}</div>
+            <div class="geo-node-label">Scanned in</div>
+            <div class="geo-node-name">${country.n}</div>
+          </div>
+        </div>
+        <div class="geo-verdict ${gv.cls}">
+          <span class="geo-verdict-icon">${gv.ic}</span>
+          <div class="geo-verdict-text"><b>${gv.title}</b>${geo.geo_explanation||'No geo analysis available'}</div>
+        </div>
+        ${geo.regional_authentication_authority?`<div style="font-size:10px;color:var(--mu);margin-top:8px;line-height:1.5"><b style="color:var(--info)">🛂 Regional authority:</b> ${geo.regional_authentication_authority}</div>`:''}
+      </div>
+    </div>
+
+    <div>
+      <div class="section-title">🔬 10-factor identification check</div>
+      <div class="mfa-panel">
+        <div class="mfa-grid">${mfaH}</div>
+      </div>
+    </div>
+
+    <div><div class="section-title">🎯 Brand recognition</div><div class="panel panel-ai"><div class="ai-head"><div class="ai-avatar">AI</div><div class="ai-head-text"><h4>Brand identified</h4><p>Claude vision analyzed ${photos.filter(p=>p).length} photo(s)</p></div><div class="ai-conf"><div class="ai-conf-val">${r.brand_confidence||0}%</div><div class="ai-conf-lbl">confidence</div></div></div><div class="ai-verdict"><b>${r.brand||'Unknown'}</b> — ${r.product_name||'Unidentified'}</div>${featH?'<div class="ai-checks">'+featH+'</div>':''}</div></div>
+
+    <div><div class="section-title">🔍 Authenticity verification</div><div class="panel panel-ai"><div class="ai-verdict">${r.ai_reasoning||''}</div><div class="ai-checks">${chkH}</div></div></div>
+
+    ${brandChksH?`<div><div class="section-title">⚙️ ${r.brand||'Brand'}-specific deep checks</div><div class="brand-checks-panel"><div class="brand-checks-header">⚠️ Anti-counterfeit checks unique to ${r.brand||'this brand'}</div><div class="ai-checks">${brandChksH}</div></div></div>`:''}
+
+    ${nearbyH}
+
+    ${storesNearMeH}
+
+    ${nextH?`<div><div class="section-title">📋 Recommended next steps</div><div class="next-steps">${nextH}</div></div>`:''}
+
+    <div class="synbox"><div class="syntit">Synopsis &amp; Conclusion &gt;&gt;</div><div class="syntext">${r.synopsis||''}</div><div class="synconcl" style="color:${cc};border-left-color:${cc}">▶ ${r.conclusion||''}</div></div>
+  `;
+
+  document.getElementById('res').className='res on';
+  setTimeout(()=>{const sf=document.getElementById('sf');if(sf)sf.style.width=sc+'%'},100);
+}
+
+// ==================== FRESHNESS MODE ====================
+async function analyzeFreshness(){
+  document.getElementById('emp').style.display='none';
+  document.getElementById('res').className='res';
+  document.getElementById('progressPanel').classList.add('show');
+
+  const photoCount=photos.filter(p=>p).length;
+  const produceHint=document.getElementById('brandHint').value.trim();
+
+  const steps=[
+    {n:'Loading '+photoCount+' photo'+(photoCount>1?'s':'')+' into AI vision',d:'Sending to Claude'},
+    {n:'Identifying produce type and variety',d:'Color, shape, size analysis'},
+    {n:'Analyzing color & surface texture',d:'Looking for discoloration, spots, wrinkles'},
+    {n:'Assessing ripeness stage',d:'Underripe → perfectly ripe → spoiled'},
+    {n:'Estimating shelf life',d:'Days until spoilage'},
+    {n:'Generating storage recommendations',d:'How to keep it fresh longer'}
+  ];
+
+  document.getElementById('progressSteps').innerHTML=steps.map((s,i)=>`<div class="progress-step" id="pStep${i}"><div class="progress-step-num">${i+1}</div><div class="progress-step-text"><b>${s.n}</b><br><span style="font-size:10px">${s.d}</span></div></div>`).join('');
+
+  let currentStep=0;
+  document.getElementById('pStep0').classList.add('active');
+  const stepInt=setInterval(()=>{
+    if(currentStep<steps.length-1){
+      document.getElementById('pStep'+currentStep).classList.remove('active');
+      document.getElementById('pStep'+currentStep).classList.add('done');
+      currentStep++;
+      document.getElementById('pStep'+currentStep).classList.add('active');
+    }
+  },900);
+
+  const prompt=`You are an expert produce quality inspector and food scientist with deep knowledge of fruit and vegetable ripeness indicators, post-harvest physiology, and shelf-life prediction. Your assessments combine the rigor of an agricultural inspector with practical kitchen knowledge.
+
+CORE PRINCIPLES:
+1. EXAMINE FIRST. Look at color, surface, blemishes, stem condition, and overall appearance before scoring.
+2. CITE EVIDENCE. Every freshness verdict must reference what you actually see.
+3. BE PRACTICAL. Recommendations should be specific and actionable for a regular person.
+4. CONSIDER VARIETY. A Granny Smith stays green when ripe; a banana yellows. Use variety-appropriate ripeness criteria.
+5. SHELF LIFE IS REALISTIC. Account for typical home storage conditions (counter or fridge depending on produce).
+
+User hint: ${produceHint||'none provided — identify yourself'}
+Photo count: ${photoCount}
+
+Respond ONLY in this JSON (no markdown, no text outside JSON):
+
+{
+  "produce_identified": "yes|no",
+  "produce_name": "specific fruit or vegetable + variety if visible (e.g. 'Roma tomato', 'Granny Smith apple', 'Hass avocado')",
+  "category": "Fruit|Vegetable|Herb|Other",
+  "freshness_score": 0-100,
+  "freshness_status": "very_fresh|fresh|fair|aging|spoiled",
+  "ripeness_stage": "underripe|near_ripe|perfectly_ripe|overripe|spoiled",
+  "ripeness_position": 0-100,
+  "estimated_days_until_spoilage": "number or short range like '3-5 days' or 'eat today'",
+  "best_use_now": "1 sentence recommendation (e.g. 'Perfect for eating raw', 'Best used in cooking or sauce', 'Use within 24 hours')",
+  "storage_advice": "1-2 sentences on how to store for maximum freshness",
+  "nutritional_peak": "yes|no",
+  "nutritional_note": "1 sentence on whether this is at nutritional peak",
+  "visual_indicators": [
+    {"factor":"Color","status":"good|warn|bad","detail":"specific observation about color"},
+    {"factor":"Surface texture","status":"good|warn|bad","detail":"smoothness, wrinkles, blemishes"},
+    {"factor":"Firmness signs","status":"good|warn|bad","detail":"visual indicators of firmness"},
+    {"factor":"Blemishes/spots","status":"good|warn|bad","detail":"any defects observed"},
+    {"factor":"Mold/decay signs","status":"good|warn|bad","detail":"any mold or rot visible"},
+    {"factor":"Stem/leaf condition","status":"good|warn|bad","detail":"condition of stem, leaves, or attachment point"}
+  ],
+  "ai_reasoning": "3-4 sentences explaining the freshness verdict with specific visual evidence",
+  "synopsis": "2 sentence summary",
+  "conclusion": "Clear actionable recommendation"
+}
+
+CRITICAL INSTRUCTIONS:
+1. IDENTIFY VARIETY when possible (Roma vs Beefsteak tomato, Hass vs Fuerte avocado, Granny Smith vs Red Delicious apple) — different varieties have different ripeness signals.
+2. RIPENESS POSITION (0-100): 0=very underripe (hard, green, not ready), 25=near ripe (needs a few more days), 50=perfectly ripe (eat now!), 75=overripe (still edible, use immediately), 100=spoiled (do not eat).
+3. FRESHNESS SCORE (0-100): combines visible freshness signals. 90-100=very fresh just-harvested look. 70-89=fresh kitchen-ready. 50-69=fair, use soon. 30-49=aging, use today. 0-29=spoiled, discard.
+4. CITE SPECIFIC EVIDENCE: not "looks fresh" but "skin is taut and uniformly red with no soft spots visible" or "stem area shows browning and slight wrinkling indicating dehydration started".
+5. STORAGE ADVICE must be variety-appropriate: tomatoes off counter, leafy greens in fridge with paper towel, avocados ripen on counter then move to fridge, bananas off other fruit due to ethylene, etc.
+6. BEST USE NOW should match ripeness: underripe → "wait 2-3 days at room temp", perfectly ripe → "eat raw, perfect for salads", overripe → "use immediately in smoothies/cooking/baking".
+7. NEVER guess identification. If unclear, set "produce_identified" to "no" and explain.`;
+
+  try{
+    const photoList=photos.filter(p=>p);
+    const result=await callAIProvider(prompt,photoList,3500);
+
+    clearInterval(stepInt);
+    for(let i=0;i<steps.length;i++){
+      document.getElementById('pStep'+i).classList.remove('active');
+      document.getElementById('pStep'+i).classList.add('done');
+    }
+
+    setTimeout(()=>{document.getElementById('progressPanel').classList.remove('show');renderFreshnessResult(result)},500);
+
+  }catch(err){
+    clearInterval(stepInt);
+    document.getElementById('progressPanel').classList.remove('show');
+    let msg=err.message;
+    const cfgName=AI_PROVIDERS[currentProvider].name;
+    if(msg.includes('401')||msg.includes('authentication'))msg=cfgName+' API key invalid. Tap ⚙ Key at top to update.';
+    else if(msg.includes('429'))msg='Too many requests. Wait 30s and try again.';
+    else if(msg.includes('credit')||msg.includes('insufficient')||msg.includes('quota'))msg='No API credits/quota left for '+cfgName+'. Add credits in your '+cfgName+' dashboard.';
+    document.getElementById('res').innerHTML=`<div class="errbox"><b>⚠ Analysis failed</b>${msg}</div>`;
+    document.getElementById('res').className='res on';
+  }
+}
+
+function renderFreshnessResult(r){
+  const score=r.freshness_score||0;
+  const status=r.freshness_status||'fair';
+  const ripenessPos=r.ripeness_position||50;
+
+  const statusMap={
+    very_fresh:{color:'#00E5A0',label:'VERY FRESH',emoji:'🌟'},
+    fresh:{color:'#7FE082',label:'FRESH',emoji:'✓'},
+    fair:{color:'#FFB800',label:'FAIR',emoji:'!'},
+    aging:{color:'#FFA528',label:'AGING',emoji:'⚠'},
+    spoiled:{color:'#FF3B5C',label:'SPOILED',emoji:'✕'}
+  };
+  const sm=statusMap[status]||statusMap.fair;
+
+  // Circle gauge calculation
+  const circumference=2*Math.PI*55;
+  const offset=circumference-(score/100)*circumference;
+
+  // Indicators
+  const indicators=(r.visual_indicators||[]).map(ind=>{
+    const cls=ind.status==='good'?'good':ind.status==='warn'?'warn':'bad';
+    const ic=ind.status==='good'?'✓':ind.status==='warn'?'!':'✕';
+    const badge=ind.status==='good'?'GOOD':ind.status==='warn'?'WARN':'BAD';
+    return `<div class="fresh-ind-row ${cls}"><div class="fresh-ind-icon">${ic}</div><div class="fresh-ind-content"><div class="fresh-ind-label">${ind.factor}<span class="fresh-ind-badge">${badge}</span></div><div class="fresh-ind-detail">${ind.detail}</div></div></div>`;
+  }).join('');
+
+  const photoHTML=photos[0]?`<img src="${photos[0]}" alt="">`:'🥬';
+
+  // Determine ripeness label
+  const ripenessLabels={underripe:'Underripe',near_ripe:'Near ripe',perfectly_ripe:'Perfectly ripe',overripe:'Overripe',spoiled:'Spoiled'};
+  const currentRipeness=ripenessLabels[r.ripeness_stage]||'Unknown';
+
+  // Categorize freshness for info cells
+  const daysCell=score>=70?'good':score>=40?'warn':'bad';
+  const nutritionCell=r.nutritional_peak==='yes'?'good':'warn';
+
+  document.getElementById('res').innerHTML=`
+    <div class="rh"><div class="bi">${photoHTML}</div><div class="binfo"><h3>${r.produce_name||'Unidentified produce'}</h3><p>${r.category||'Produce'} · Freshness analysis</p></div></div>
+
+    <div class="freshness-hero">
+      <div class="freshness-circle">
+        <svg viewBox="0 0 130 130">
+          <circle class="freshness-circle-bg" cx="65" cy="65" r="55"/>
+          <circle class="freshness-circle-fill" cx="65" cy="65" r="55" stroke="${sm.color}" stroke-dasharray="${circumference}" stroke-dashoffset="${circumference}" id="freshCircle"/>
+        </svg>
+        <div class="freshness-percent-center">
+          <div class="freshness-percent" style="color:${sm.color}">${score}</div>
+          <div class="freshness-label">freshness</div>
+        </div>
+      </div>
+      <div class="freshness-status" style="color:${sm.color}">${sm.emoji} ${sm.label}</div>
+    </div>
+
+    <div>
+      <div class="section-title">🥬 Produce information</div>
+      <div class="fresh-info-panel">
+        <div class="fresh-info-cell ${daysCell}">
+          <div class="fresh-info-label">📅 Eat within</div>
+          <div class="fresh-info-value">${r.estimated_days_until_spoilage||'Unknown'}</div>
+          <div class="fresh-info-sub">Before spoilage</div>
+        </div>
+        <div class="fresh-info-cell ${nutritionCell}">
+          <div class="fresh-info-label">💪 Nutritional peak</div>
+          <div class="fresh-info-value-sm">${r.nutritional_peak==='yes'?'✓ At peak':'⚠ Not at peak'}</div>
+          <div class="fresh-info-sub">${r.nutritional_note||''}</div>
+        </div>
+        <div class="fresh-info-cell full">
+          <div class="fresh-info-label">🍽️ Best use right now</div>
+          <div class="fresh-info-value-sm" style="color:var(--tx)">${r.best_use_now||'No recommendation'}</div>
+        </div>
+        <div class="fresh-info-cell full">
+          <div class="fresh-info-label">🏠 Storage advice</div>
+          <div class="fresh-info-value-sm" style="color:var(--tx);font-weight:400">${r.storage_advice||'No advice'}</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-title">🌱 Ripeness timeline</div>
+      <div class="ripeness-timeline">
+        <div class="ripeness-bar">
+          <div class="ripeness-marker" id="ripenessMarker" style="left:0%"></div>
+        </div>
+        <div class="ripeness-labels">
+          <span>Underripe</span><span>Near ripe</span><span>Perfect</span><span>Overripe</span><span>Spoiled</span>
+        </div>
+        <div class="ripeness-label-current">Current stage: <b style="color:${sm.color}">${currentRipeness}</b></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-title">🔍 Visual freshness indicators</div>
+      <div class="fresh-indicators">${indicators}</div>
+    </div>
+
+    <div>
+      <div class="section-title">🤖 AI freshness verdict</div>
+      <div class="panel panel-ai"><div class="ai-verdict">${r.ai_reasoning||''}</div></div>
+    </div>
+
+    <div class="synbox">
+      <div class="syntit">Synopsis &amp; Conclusion &gt;&gt;</div>
+      <div class="syntext">${r.synopsis||''}</div>
+      <div class="synconcl" style="color:${sm.color};border-left-color:${sm.color}">▶ ${r.conclusion||''}</div>
+    </div>
+  `;
+
+  document.getElementById('res').className='res on';
+  setTimeout(()=>{
+    const circle=document.getElementById('freshCircle');
+    if(circle)circle.style.strokeDashoffset=offset;
+    const marker=document.getElementById('ripenessMarker');
+    if(marker)marker.style.left=Math.min(98,Math.max(2,ripenessPos))+'%';
+  },150);
+}
+
+// ===================================================================
+// PWA INSTALLATION HANDLING
+// ===================================================================
+let deferredInstallPrompt=null;
+
+// Register service worker (enables offline support + PWA installability)
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('sw.js').then(reg=>{
+      console.log('[PWA] Service worker registered:',reg.scope);
+    }).catch(err=>{
+      console.warn('[PWA] Service worker registration failed:',err);
+    });
+  });
+}
+
+// Listen for Android/Chrome install prompt
+window.addEventListener('beforeinstallprompt',(e)=>{
+  e.preventDefault();
+  deferredInstallPrompt=e;
+  // Show our custom install banner if not previously dismissed and not already installed
+  if(localStorage.getItem('fc_install_dismissed')!=='1'&&!isAppInstalled()){
+    document.getElementById('installBanner').classList.add('show');
+  }
+});
+
+// Detect if already running as installed PWA
+function isAppInstalled(){
+  return window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
+}
+
+// Detect iOS Safari (which has no native install prompt — needs manual instructions)
+function isIosSafari(){
+  const ua=navigator.userAgent;
+  const isIos=/iPad|iPhone|iPod/.test(ua)&&!window.MSStream;
+  const isSafari=/Safari/.test(ua)&&!/CriOS|FxiOS|EdgiOS/.test(ua);
+  return isIos&&isSafari;
+}
+
+// Show iOS install guide if Safari on iOS and not already installed
+window.addEventListener('load',()=>{
+  if(isIosSafari()&&!isAppInstalled()&&localStorage.getItem('fc_ios_guide_dismissed')!=='1'){
+    setTimeout(()=>{
+      document.getElementById('iosInstallGuide').classList.add('show');
+    },1500);
+  }
+});
+
+function triggerInstall(){
+  if(deferredInstallPrompt){
+    deferredInstallPrompt.prompt();
+    deferredInstallPrompt.userChoice.then(choice=>{
+      if(choice.outcome==='accepted'){
+        showToast('✓ App installing...',false,3000);
+      }
+      deferredInstallPrompt=null;
+      document.getElementById('installBanner').classList.remove('show');
+    });
+  }
+}
+
+function dismissInstall(){
+  localStorage.setItem('fc_install_dismissed','1');
+  document.getElementById('installBanner').classList.remove('show');
+}
+
+function dismissIosGuide(e){
+  if(e)e.preventDefault();
+  localStorage.setItem('fc_ios_guide_dismissed','1');
+  document.getElementById('iosInstallGuide').classList.remove('show');
+}
+
+// Update top status when installed
+window.addEventListener('appinstalled',()=>{
+  showToast('🎉 FakeCheckApp installed!',false,3500);
+  document.getElementById('installBanner').classList.remove('show');
+  document.getElementById('iosInstallGuide').classList.remove('show');
+});
+</script>
+<div style="display:none!important;visibility:hidden;position:absolute;left:-99999px;top:-99999px;width:0;height:0;overflow:hidden" aria-hidden="true" data-owner="Edmond Azbel" data-year="2026" data-license="Proprietary">
+(c) 2026 Edmond Azbel. All Rights Reserved. FakeCheckApp — Patent Pending. Proprietary. Unauthorized use prohibited.
+</div>
+</body>
+</html>
